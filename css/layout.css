@@ -1,3 +1,5 @@
+/* layout classes should be separated for other css */
+
 .hidden {
   display: none !important;
 }
