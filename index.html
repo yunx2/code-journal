@@ -10,43 +10,45 @@
     crossorigin="anonymous"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Proza+Libre:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="">
   <!-- header in every view and static -->
-  <header class="row purple-bg white-text">
-    <h1 class="page-header-text">Code Journal</h1>
+  <header class="row page-header">
+    <div class="column-full"><h1 class="page-header-text">Code Journal</h1></div>
+
   </header>
   <main class="container">
     <!-- row 1 -->
     <div class="row" data-view="entry-form">
+      <div class="column-full">
+        <h2 class="form-heading">New Entry</h2>
+      </div>
       <!-- left half -->
       <div class="column-half" >
-        <h2 class="heading-font">New Entry</h2>
         <img class="entry-img" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
       </div>
       <!-- right half -->
-      <form class="form-inputs column-half">
+      <form class="column-half">
+        <label for="title" class="form-label">Title</label>
         <div>
-          <label for="title" class="label-text">Title</label>
-          <input id="title" name="entry-title" required>
+          <input id="title" name="entry-title" class="form-controls form-input" required>
         </div>
+        <label for="img-url" class="form-label">Photo URL</label>
         <div>
-          <label for="img-url" class="label-text">Photo URL</label>
-          <input id="img-url" name="entry-url" type="url">
+          <input id="img-url" name="entry-url" type="url" class="form-controls form-input" required>
         </div>
       </form>
       <form class="column-full form-textarea">
-        <div>
-          <label for="notes" class="label-text">Notes</label>
-          <textarea id="notes" name="entry-notes"></textarea>
-        </div>
-
-        <button>SAVE</button>
+        <label for="notes" class="form-label">Notes</label>
+        <div><textarea id="notes" rows="5" name="entry-notes" class="form-controls" required></textarea></div>
+        <div class="row btn-container"><button class="btn">SAVE</button></div>
       </form>
-
 
     </div>
   </main>
