@@ -14,30 +14,36 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="container">
+<body class="">
   <!-- header in every view and static -->
-  <header class="row">
-    <h1>Code Journal</h1>
+  <header class="row purple-bg white-text">
+    <h1 class="page-header-text">Code Journal</h1>
   </header>
-  <main>
+  <main class="container">
     <!-- row 1 -->
     <div class="row" data-view="entry-form">
       <!-- left half -->
       <div class="column-half" >
-        <h2>New Entry</h2>
-        <img class="entry-img column-half" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
+        <h2 class="heading-font">New Entry</h2>
+        <img class="entry-img" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
       </div>
       <!-- right half -->
       <form class="form-inputs column-half">
-        <label for="title">Title</label>
-        <input id="title" name="entry-title" required>
-
-        <label for="img-url">Photo URL</label>
-        <input id="img-url" name="entry-url" type="url">
+        <div>
+          <label for="title" class="label-text">Title</label>
+          <input id="title" name="entry-title" required>
+        </div>
+        <div>
+          <label for="img-url" class="label-text">Photo URL</label>
+          <input id="img-url" name="entry-url" type="url">
+        </div>
       </form>
       <form class="column-full form-textarea">
-        <label for="notes">Notes</label>
-        <textarea id="notes" name="entry-notes"></textarea>
+        <div>
+          <label for="notes" class="label-text">Notes</label>
+          <textarea id="notes" name="entry-notes"></textarea>
+        </div>
+
         <button>SAVE</button>
       </form>
 
