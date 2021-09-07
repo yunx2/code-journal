@@ -37,17 +37,20 @@
       <form class="column-half" id="entry-form">
         <label for="title" class="form-label">Title</label>
         <div>
-          <input id="title" name="entry-title" class="form-controls form-input" required>
+          <!-- put back required -->
+          <input id="title" name="entry-title" class="form-controls form-input">
         </div>
         <label for="img-url" class="form-label">Photo URL</label>
         <div>
-          <input id="img-url" name="entry-url" type="url" class="form-controls form-input" required>
+          <!-- put back required -->
+          <input id="img-url" name="entry-url" type="url" class="form-controls form-input">
         </div>
       </form>
       <form class="column-full form-textarea" id="entry-text">
-        <label for="notes" class="form-label">Notes</label>
-        <div><textarea id="notes" rows="5" name="entry-notes" class="form-controls" required></textarea></div>
-        <div class="row btn-container"><button class="btn">SAVE</button></div>
+        <label for="journal-entry" class="form-label">Notes</label>
+        <!-- put back required -->
+        <div><textarea id="journal-entry" rows="5" name="entry-notes" class="form-controls"></textarea></div>
+        <div class="row btn-container"><input type="submit" value="SAVE" class="btn"></div>
       </form>
     </div>
   </main>
