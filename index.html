@@ -25,7 +25,7 @@
   </header>
   <main class="container">
     <!-- row 1 -->
-    <div class="row" data-view="entry-form">
+    <form class="row" id="entry-form" data-view="entry-form">
       <div class="column-full">
         <h2 class="form-heading">New Entry</h2>
       </div>
@@ -34,7 +34,7 @@
         <img class="entry-img" id="photo-preview" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
       </div>
       <!-- right half -->
-      <form class="column-half" id="entry-form">
+      <div class="column-half" id="">
         <label for="title" class="form-label">Title</label>
         <div>
           <!-- put back required -->
@@ -42,17 +42,17 @@
         </div>
         <label for="img-url" class="form-label">Photo URL</label>
         <div>
-          <!-- put back required -->
-          <input id="img-url" name="entry-url" type="url" class="form-controls form-input">
+          <!-- put back required; change type back to url -->
+          <input id="img-url" name="entry-url" class="form-controls form-input">
         </div>
-      </form>
-      <form class="column-full form-textarea" id="entry-text">
+      </div>
+      <div class="column-full form-textarea" id="entry-text">
         <label for="journal-entry" class="form-label">Notes</label>
         <!-- put back required -->
         <div><textarea id="journal-entry" rows="5" name="entry-notes" class="form-controls"></textarea></div>
         <div class="row btn-container"><input type="submit" value="SAVE" class="btn"></div>
-      </form>
-    </div>
+      </div>
+    </form>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

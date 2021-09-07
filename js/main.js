@@ -2,7 +2,12 @@
 /* exported data */
 
 const $entryForm = document.getElementById('entry-form');
-const $photoUrlInput = $entryForm.elements['img-url'];
+// console.log('#entry-form:', $entryForm)
+// console.log('entryForm.elements:', $entryForm.elements)
+// console.log('title input value:', $entryForm.elements[0].value)
+
+
+const $photoUrlInput = $entryForm.elements[1];
 
 
 function handleUrlInput(e) {
@@ -15,33 +20,33 @@ function handleUrlInput(e) {
 
 $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
 
-// console.log('#entry-form:', $entryForm)
+
 // console.log('$photoUrlInput', $entryForm.elements['img-url']);
 
-const $journalEntryForm = document.getElementById('entry-text');
+
 // console.log('$journalEntryForm', $journalEntryForm);
 
 function handleSubmit(e) {
   e.preventDefault();
   // console.log('e.target', e.target);
   // console.log('e.target.value', e.target.value);
-  const $entry = document.getElementById('entry-text');
+  const entry = $entryForm.elements[2].value;;
   // const $entryForm = document.getElementById('entry-form');
   // console.log('$entry.elements', $entry.elements);
-  // const title = $entryForm.elements['entry-title'].value;
-  // const entry = $entry.elements[0].value;
+  const title = $entryForm.elements[0].value;
+  const url = $entryForm.elements[1].value;
   // const url = $entryForm.elements['entry-url'].value;
-  // const inputData = {
-  //   entryId: data.nextEntryId,
-  //   journalEntry: entry,
-  //   photoUrl: url,
-  //   title: title
-  // };
+  const inputData = {
+    entryId: data.nextEntryId,
+    journalEntry: entry,
+    photoUrl: url,
+    title: title
+  };
 
-  // console.log('inputData: ', inputData);
+  console.log('inputData: ', inputData);
 //    console.log('nextEntryId, before increment: ', data.nextEntryId);
-//   data.nextEntryId++;
+  data.nextEntryId++;
 //   console.log('nextEntryId, after increment: ', data.nextEntryId);
 }
 
-$journalEntryForm.addEventListener('submit', e => handleSubmit(e))
+$entryForm.addEventListener('submit', e => handleSubmit(e));
