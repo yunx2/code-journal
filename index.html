@@ -31,10 +31,10 @@
       </div>
       <!-- left half -->
       <div class="column-half" >
-        <img class="entry-img" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
+        <img class="entry-img" id="photo-preview" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
       </div>
       <!-- right half -->
-      <form class="column-half">
+      <form class="column-half" id="entry-form">
         <label for="title" class="form-label">Title</label>
         <div>
           <input id="title" name="entry-title" class="form-controls form-input" required>
@@ -44,12 +44,11 @@
           <input id="img-url" name="entry-url" type="url" class="form-controls form-input" required>
         </div>
       </form>
-      <form class="column-full form-textarea">
+      <form class="column-full form-textarea" id="entry-text">
         <label for="notes" class="form-label">Notes</label>
         <div><textarea id="notes" rows="5" name="entry-notes" class="form-controls" required></textarea></div>
         <div class="row btn-container"><button class="btn">SAVE</button></div>
       </form>
-
     </div>
   </main>
   <script src="js/data.js"></script>
