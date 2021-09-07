@@ -14,24 +14,34 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-  <header>
+<body class="container">
+  <!-- header in every view and static -->
+  <header class="row">
+    <h1>Code Journal</h1>
   </header>
   <main>
-    <div data-view="entry-form">
-      <h2>New Entry</h2>
-      <img src="./images/placeholder-image-square.jpg" alt="placeholder-img">
-      <form>
+    <!-- row 1 -->
+    <div class="row" data-view="entry-form">
+      <!-- left half -->
+      <div class="column-half" >
+        <h2>New Entry</h2>
+        <img class="entry-img column-half" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
+      </div>
+      <!-- right half -->
+      <form class="form-inputs column-half">
         <label for="title">Title</label>
         <input id="title" name="entry-title" required>
 
         <label for="img-url">Photo URL</label>
         <input id="img-url" name="entry-url" type="url">
-
+      </form>
+      <form class="column-full form-textarea">
         <label for="notes">Notes</label>
         <textarea id="notes" name="entry-notes"></textarea>
         <button>SAVE</button>
       </form>
+
+
     </div>
   </main>
   <script src="js/data.js"></script>
