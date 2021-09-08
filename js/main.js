@@ -4,10 +4,12 @@
 const $entryForm = document.getElementById('entry-form');
 
 const $photoUrlInput = $entryForm.elements[1];
+const $photoPreview = document.getElementById('photo-preview');
 
 
 function handleUrlInput(e) {
-  $photoUrlInput.setAttribute('src', e.target.value);
+  $photoPreview.setAttribute('src', e.target.value);
+  console.log('e.target', e.target )
 }
 
 $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
@@ -28,7 +30,7 @@ function handleSubmit(e) {
   data.entries.unshift(inputData);
   $entryForm.reset();
   const placeholderUrl = './images/placeholder-image-square.jpg';
-  $photoUrlInput.setAttribute('src', placeholderUrl);
+  $photoPreview.setAttribute('src', placeholderUrl);
 }
 
 $entryForm.addEventListener('submit', e => handleSubmit(e));
