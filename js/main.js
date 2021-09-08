@@ -1,21 +1,19 @@
 /* global data */
 /* exported data */
-
+const entries = [];
+let idCount = 1;
 const $entryForm = document.getElementById('entry-form');
 const $photoUrlInput = $entryForm.elements[1];
 const $photoPreview = document.getElementById('photo-preview');
 
 function handleUnload() {
-  localStorage.setItem('dataJSON', JSON.stringify(data));
+  data.entries = entries;
+  data.nextEntryId = idCount;
+  const dataJSON = JSON.stringify(data);
+  // console.log('entries before unload:', entries);
+  // console.log('idCount before unload:', idCount);
+  localStorage.setItem('dataJSON', dataJSON);
 }
-// const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosq.';
-
-// const dummyEntry = {
-//   entryId: 13,
-//   journalEntry: lorem,
-//   title: 'Scheme',
-//   photoUrl: 'images/dummy-images/scheme.jpg'
-// };
 
 function createEntryElement(entry) {
   const { entryId, journalEntry, photoUrl, title } = entry;
@@ -53,10 +51,6 @@ function createEntryElement(entry) {
   // console.log('entryId:', entryId);
 }
 
-// console.log('$dummy', createEntryElement(dummyEntry));
-
-// console.log('$firstListItem:', $firstListItem);
-
 // const $entriesList = document.getElementById('entries-ul');
 // $firstListItem.prepend(createEntryElement(dummyEntry));
 // console.log('$entriesList:', $entriesList);
@@ -66,29 +60,28 @@ function createEntryElement(entry) {
 // previousEntries.push(dummyEntry);
 
 function createAndAdd(entry) {
+  // create DOM element from entry object
   const $el = createEntryElement(entry);
+  // hide 'no-entries' object
+  document.getElementById('no-entries-recorded').classList.add('hidden');
   const $firstListItem = document.querySelector('li:first-child');
   $firstListItem.prepend($el);
 }
 
 function displayEntries() {
+  // access localstorage at key 'dataJSON' and parse value back into JS
   const storedData = JSON.parse(localStorage.getItem('dataJSON'));
-  // const $entriesView = document.getElementById('entries');
-  // const $firstListItem = document.querySelector('li:first-child');
-  if (!storedData || (storedData.entries.length === 0)) {
-    const $message = document.createElement('div');
-    $message.textContent = 'No entries have been recorded';
-    $message.setAttribute('id', 'message');
-    const $entryView = document.getElementById('view-entries');
-    $entryView.appendChild($message);
-  } else {
-    const $message = document.getElementById('message');
-    if ($message) {
-      $message.remove();
-    }
-    const entries = storedData.entries;
-    for (let i = 0; i < entries.length; i++) {
-      const entry = entries[i];
+  // access 'entries' property of parsed data object
+  const storedEntries = storedData.entries;
+  // check that the entries array exists and has at least on eentry in it
+  if (storedEntries && (storedEntries.length > 0)) {
+    // hide 'no entries' message
+    const $message = document.getElementById('no-entries-recorded');
+    $message.classList.add('hidden');
+    // iterate through storedEntries, create a <li> element from each entry object;
+    // attach created elements to DOM
+    for (let i = 0; i < storedEntries.length; i++) {
+      const entry = storedEntries[i];
       createAndAdd(entry);
     }
   }
@@ -96,8 +89,6 @@ function displayEntries() {
 
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
-
-// createEntryElement(dummyEntry);
 
 function handleUrlInput(e) {
   $photoPreview.setAttribute('src', e.target.value);
@@ -115,13 +106,15 @@ function handleSubmit(e) {
     photoUrl: url,
     title: title
   };
-  data.nextEntryId++;
-  data.entries.unshift(inputData);
+  idCount++;
+  entries.unshift(inputData);
+  // console.log('entries after submit:', entries);
+  // console.log('data.entries:', data.entries
   $entryForm.reset();
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
   createAndAdd(inputData);
-  $entryForm.classList.add('hidden');
+  // $entryForm.classList.add('hidden');
 }
 
 $entryForm.addEventListener('submit', e => handleSubmit(e));
