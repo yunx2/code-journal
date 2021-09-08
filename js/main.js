@@ -1,6 +1,6 @@
 /* global data */
 /* exported data */
-const entries = [];
+let entries = [];
 let idCount = 1;
 const $entryForm = document.getElementById('entry-form');
 const $photoUrlInput = $entryForm.elements[1];
@@ -68,22 +68,22 @@ function createAndAdd(entry) {
   $firstListItem.prepend($el);
 }
 
-function displayEntries() {
+function handlePageLoad() {
   // access localstorage at key 'dataJSON' and parse value back into JS
   const storedData = JSON.parse(localStorage.getItem('dataJSON'));
-  // access 'entries' property of parsed data object
-  const storedEntries = storedData.entries;
+  // set entries array entres
+  entries = storedData.entries;
+  idCount = storedData.nextEntryId;
   // check that the entries array exists and has at least on eentry in it
-  if (storedEntries && (storedEntries.length > 0)) {
+  if (entries && (entries.length > 0)) {
     // hide 'no entries' message
     const $message = document.getElementById('no-entries-recorded');
     $message.classList.add('hidden');
     // iterate through storedEntries, create a <li> element from each entry object;
     // attach created elements to DOM
-    for (let i = 0; i < storedEntries.length; i++) {
-      const entry = storedEntries[i];
-      createAndAdd(entry);
-    }
+    entries.forEach(current => {
+      createAndAdd(current);
+    });
   }
 }
 
@@ -93,7 +93,6 @@ function displayEntries() {
 function handleUrlInput(e) {
   $photoPreview.setAttribute('src', e.target.value);
 }
-$photoUrlInput.addEventListener('input', e => handleUrlInput(e));
 
 function handleSubmit(e) {
   e.preventDefault();
@@ -117,10 +116,11 @@ function handleSubmit(e) {
   // $entryForm.classList.add('hidden');
 }
 
+// attach event handlers
 $entryForm.addEventListener('submit', e => handleSubmit(e));
-
-document.addEventListener('load', e => {
-  $entryForm.classList.remove('hidden');
-});
+$photoUrlInput.addEventListener('input', e => handleUrlInput(e));
+// document.addEventListener('load', e => {
+//   $entryForm.classList.remove('hidden');
+// });
 window.addEventListener('beforeunload', handleUnload);
-document.addEventListener('DOMContentLoaded', displayEntries);
+document.addEventListener('DOMContentLoaded', handlePageLoad);
