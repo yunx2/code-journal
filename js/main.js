@@ -2,6 +2,7 @@
 /* exported data */
 let entries = [];
 let idCount = 1;
+let view = 'entry-form';
 const $entryForm = document.getElementById('entry-form');
 const $photoUrlInput = $entryForm.elements[1];
 const $photoPreview = document.getElementById('photo-preview');
@@ -9,6 +10,7 @@ const $photoPreview = document.getElementById('photo-preview');
 function handleUnload() {
   data.entries = entries;
   data.nextEntryId = idCount;
+  data.view = view;
   const dataJSON = JSON.stringify(data);
   // console.log('entries before unload:', entries);
   // console.log('idCount before unload:', idCount);
@@ -124,3 +126,15 @@ $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
 // });
 window.addEventListener('beforeunload', handleUnload);
 document.addEventListener('DOMContentLoaded', handlePageLoad);
+
+// click handlers for view-swapping
+
+const $entriesButton = document.getElementById('btn-entries');
+$entriesButton.addEventListener('click', () => {
+  view = 'entries';
+});
+
+const $newButton = document.getElementById('btn-new');
+$newButton.addEventListener('click', () => {
+  view = 'entry-form';
+});
