@@ -5,6 +5,8 @@ body {
 
 .flex-container {
   display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
 }
 
 .entry-img {
@@ -28,10 +30,11 @@ body {
 .page-header-text {
   font-size: 20px;
   font-weight: 400;
+  min-width: 150px;
 
-  /* width: 50%; */
-  width: 100%;
+  /* width: 100%; */
   padding: 0 1.5rem;
+  margin-bottom: 0;
 }
 
 .form-heading,
@@ -108,4 +111,9 @@ textarea#notes {
 
 .nav {
   margin-top: 16px;
+}
+
+#entries-link {
+  color: white;
+  text
 }
