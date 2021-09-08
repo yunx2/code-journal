@@ -70,12 +70,39 @@ function createEntryElement(entry) {
   $colHalfEntry.append($title, $entryPara);
 
   $article.append($colHalfImg, $colHalfEntry);
-
   $entriesListItem.appendChild($article);
+
+  return $entriesListItem;
   // console.log('$entriesListItem:', $entriesListItem);
   // console.log('entryId:', entryId);
   // console.log('title:', title);
   // console.log('entryId:', entryId);
 }
 
-createEntryElement(dummyEntry);
+// console.log('$dummy', createEntryElement(dummyEntry));
+
+// console.log('$firstListItem:', $firstListItem);
+
+// const $entriesList = document.getElementById('entries-ul');
+// $firstListItem.prepend(createEntryElement(dummyEntry));
+// console.log('$entriesList:', $entriesList);
+// $entriesList.prepend(createEntryElement(dummyEntry));
+// console.log('prepended $entriesList:', $entriesList);
+// console.log('$entriesList:', $entriesList);
+
+const previousEntries = data.entries;
+previousEntries.push(dummyEntry);
+function displayEntries(entries) {
+  // const $entriesView = document.getElementById('entries');
+  const $firstListItem = document.querySelector('li:first-child');
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i];
+    const $entryElement = createEntryElement(entry);
+    $firstListItem.prepend($entryElement);
+  }
+}
+
+// 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
+// 'load' event does wait for the page and all resources to completely load before firing
+document.addEventListener('DOMContentLoaded', () => { displayEntries(previousEntries); });
+// createEntryElement(dummyEntry);
