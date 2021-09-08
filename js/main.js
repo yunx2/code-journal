@@ -5,43 +5,17 @@ const $entryForm = document.getElementById('entry-form');
 const $photoUrlInput = $entryForm.elements[1];
 const $photoPreview = document.getElementById('photo-preview');
 
-function handleUrlInput(e) {
-  $photoPreview.setAttribute('src', e.target.value);
-}
-$photoUrlInput.addEventListener('input', e => handleUrlInput(e));
-
-function handleSubmit(e) {
-  e.preventDefault();
-  const entry = $entryForm.elements[2].value;
-  const title = $entryForm.elements[0].value;
-  const url = $entryForm.elements[1].value;
-  const inputData = {
-    entryId: data.nextEntryId,
-    journalEntry: entry,
-    photoUrl: url,
-    title: title
-  };
-  data.nextEntryId++;
-  data.entries.unshift(inputData);
-  $entryForm.reset();
-  const placeholderUrl = './images/placeholder-image-square.jpg';
-  $photoPreview.setAttribute('src', placeholderUrl);
-}
-$entryForm.addEventListener('submit', e => handleSubmit(e));
-
 function handleUnload() {
   localStorage.setItem('prevEntriesJSON', JSON.stringify(data.entries));
 }
-window.addEventListener('beforeunload', handleUnload);
+// const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosq.';
 
-const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosq.';
-
-const dummyEntry = {
-  entryId: 13,
-  journalEntry: lorem,
-  title: 'Scheme',
-  photoUrl: 'images/dummy-images/scheme.jpg'
-};
+// const dummyEntry = {
+//   entryId: 13,
+//   journalEntry: lorem,
+//   title: 'Scheme',
+//   photoUrl: 'images/dummy-images/scheme.jpg'
+// };
 
 function createEntryElement(entry) {
   const { entryId, journalEntry, photoUrl, title } = entry;
@@ -90,19 +64,67 @@ function createEntryElement(entry) {
 // console.log('prepended $entriesList:', $entriesList);
 // console.log('$entriesList:', $entriesList);
 
-const previousEntries = data.entries;
-previousEntries.push(dummyEntry);
-function displayEntries(entries) {
-  // const $entriesView = document.getElementById('entries');
+let previousEntries = data.entries;
+// previousEntries.push(dummyEntry);
+
+function createAndAdd(entry) {
+  const $el = createEntryElement(entry);
   const $firstListItem = document.querySelector('li:first-child');
-  for (let i = 0; i < entries.length; i++) {
-    const entry = entries[i];
-    const $entryElement = createEntryElement(entry);
-    $firstListItem.prepend($entryElement);
+  $firstListItem.prepend($el);
+}
+
+function displayEntries(entries) {
+  previousEntries = JSON.parse(localStorage.getItem('prevEntriesJSON'));
+  // const $entriesView = document.getElementById('entries');
+  // const $firstListItem = document.querySelector('li:first-child');
+  if (!previousEntries || (previousEntries.length === 0)) {
+    const $message = document.createElement('div');
+    $message.textContent = 'No entries have been recorded';
+    $message.setAttribute('id', 'message');
+    const $entryView = document.getElementById('view-entries');
+    $entryView.appendChild($message);
+  } else {
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      createAndAdd(entry);
+    }
   }
 }
 
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
-document.addEventListener('DOMContentLoaded', () => { displayEntries(previousEntries); });
+
 // createEntryElement(dummyEntry);
+
+function handleUrlInput(e) {
+  $photoPreview.setAttribute('src', e.target.value);
+}
+$photoUrlInput.addEventListener('input', e => handleUrlInput(e));
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const entry = $entryForm.elements[2].value;
+  const title = $entryForm.elements[0].value;
+  const url = $entryForm.elements[1].value;
+  const inputData = {
+    entryId: data.nextEntryId,
+    journalEntry: entry,
+    photoUrl: url,
+    title: title
+  };
+  data.nextEntryId++;
+  data.entries.unshift(inputData);
+  $entryForm.reset();
+  const placeholderUrl = './images/placeholder-image-square.jpg';
+  $photoPreview.setAttribute('src', placeholderUrl);
+  createAndAdd(inputData);
+  $entryForm.classList.add('hidden');
+}
+
+$entryForm.addEventListener('submit', e => handleSubmit(e));
+
+document.addEventListener('load', e => {
+  $entryForm.classList.remove('hidden');
+});
+window.addEventListener('beforeunload', handleUnload);
+document.addEventListener('DOMContentLoaded', () => { displayEntries(previousEntries); });
