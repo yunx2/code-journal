@@ -6,7 +6,7 @@ const $photoUrlInput = $entryForm.elements[1];
 const $photoPreview = document.getElementById('photo-preview');
 
 function handleUnload() {
-  localStorage.setItem('prevEntriesJSON', JSON.stringify(data.entries));
+  localStorage.setItem('dataJSON', JSON.stringify(data));
 }
 // const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosq.';
 
@@ -63,8 +63,6 @@ function createEntryElement(entry) {
 // $entriesList.prepend(createEntryElement(dummyEntry));
 // console.log('prepended $entriesList:', $entriesList);
 // console.log('$entriesList:', $entriesList);
-
-let previousEntries = data.entries;
 // previousEntries.push(dummyEntry);
 
 function createAndAdd(entry) {
@@ -73,17 +71,22 @@ function createAndAdd(entry) {
   $firstListItem.prepend($el);
 }
 
-function displayEntries(entries) {
-  previousEntries = JSON.parse(localStorage.getItem('prevEntriesJSON'));
+function displayEntries() {
+  const storedData = JSON.parse(localStorage.getItem('dataJSON'));
   // const $entriesView = document.getElementById('entries');
   // const $firstListItem = document.querySelector('li:first-child');
-  if (!previousEntries || (previousEntries.length === 0)) {
+  if (!storedData || (storedData.entries.length === 0)) {
     const $message = document.createElement('div');
     $message.textContent = 'No entries have been recorded';
     $message.setAttribute('id', 'message');
     const $entryView = document.getElementById('view-entries');
     $entryView.appendChild($message);
   } else {
+    const $message = document.getElementById('message');
+    if ($message) {
+      $message.remove();
+    }
+    const entries = storedData.entries;
     for (let i = 0; i < entries.length; i++) {
       const entry = entries[i];
       createAndAdd(entry);
@@ -127,4 +130,4 @@ document.addEventListener('load', e => {
   $entryForm.classList.remove('hidden');
 });
 window.addEventListener('beforeunload', handleUnload);
-document.addEventListener('DOMContentLoaded', () => { displayEntries(previousEntries); });
+document.addEventListener('DOMContentLoaded', displayEntries);
