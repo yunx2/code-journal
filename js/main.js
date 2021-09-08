@@ -43,16 +43,28 @@ function handleSubmit(e) {
     title: title
   };
 
-  console.log('inputData: ', inputData);
+  // console.log('inputData: ', inputData);
 //    console.log('nextEntryId, before increment: ', data.nextEntryId);
   data.nextEntryId++;
 //   console.log('nextEntryId, after increment: ', data.nextEntryId);
   data.entries.unshift(inputData);
-  console.log(data.entries);
+  // console.log(data.entries);
   $entryForm.reset();
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoUrlInput.setAttribute('src', placeholderUrl);
-
-}
+//   localStorage.setItem('prevEntriesJSON', JSON.stringify(data.entries));
+//   console.log('localStorage.prevEntriesJSON:', localStorage.prevEntriesJSON)
+// }
 
 $entryForm.addEventListener('submit', e => handleSubmit(e));
+
+function handleUnload() {
+  localStorage.setItem('prevEntriesJSON', JSON.stringify(data.entries));
+  console.log('localStorage.prevEntriesJSON:', localStorage.prevEntriesJSON);
+}
+
+window.addEventListener('beforeunload', handleUnload);
+
+// const entries= [];
+// const previousEntries = localStorage.getItem('prevEntriesJSON');
+// if ()
