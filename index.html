@@ -21,11 +21,11 @@
   <!-- header in every view and static -->
   <header class="row page-header">
     <div class="column-full"><h1 class="page-header-text">Code Journal</h1></div>
-
   </header>
   <main class="container">
+    <!-- entry form view-->
     <!-- row 1 -->
-    <form class="row" id="entry-form" data-view="entry-form">
+    <form class="row hidden" id="entry-form" data-view="entry-form">
       <div class="column-full">
         <h2 class="form-heading">New Entry</h2>
       </div>
@@ -46,11 +46,56 @@
       </div>
       <div class="column-full form-textarea" id="entry-text">
         <label for="journal-entry" class="form-label">Notes</label>
-        <!-- put back required -->
         <div><textarea id="journal-entry" rows="5" name="entry-notes" class="form-controls" required></textarea></div>
         <div class="row btn-container"><input type="submit" value="SAVE" class="btn"></div>
       </div>
     </form>
+    <!-- entries view -->
+    <div class="row" data-view="entries">
+      <div class="column-full" >
+        <h2 class="entries-heading">Entries</h2>
+        <span>NEW</span>
+      </div>
+      <ul>
+        <!-- entry 1 -->
+        <li>
+          <article>
+            <div class="column-half">
+              <img src="./images/dummy-images/javascript.png" alt="js">
+            </div>
+            <div class="column-half">
+              <h3>Javascript</h3>
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Aliquam culpa nihil quo aliquid repellendus dignissimos deleniti modi, iusto accusamus explicabo, tempore, velit veniam magni quaerat?
+              </p>
+              <p>
+                Fuga, libero numquam. Corrupti, iure! Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              </p>
+            </div>
+          </article>
+        </li>
+        <!-- entry 2 -->
+        <li>
+          <article>
+             <div class="column-half">
+              <img src="./images/dummy-images/node.png" alt="node-js">
+            </div>
+            <div class="column-half">
+              <h3>Node</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic ipsa animi autem provident repellendus
+                dolorum repudiandae nulla magnam excepturi, odit id! Nulla dignissimos eos harum, illo ducimus tempora
+                 quam repellat.
+              </p>
+              <p>
+                Nulla dignissimos eos harum, illo ducimus tempora quam repellat. Hic ipsa animi autem provident repellendus
+                dolorum repudiandae nulla magnam excepturi, odit id!
+              </p>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
