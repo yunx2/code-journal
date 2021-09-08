@@ -9,7 +9,6 @@ const $photoPreview = document.getElementById('photo-preview');
 
 function handleUrlInput(e) {
   $photoPreview.setAttribute('src', e.target.value);
-  console.log('e.target', e.target )
 }
 
 $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
@@ -37,7 +36,6 @@ $entryForm.addEventListener('submit', e => handleSubmit(e));
 
 function handleUnload() {
   localStorage.setItem('prevEntriesJSON', JSON.stringify(data.entries));
-  console.log('localStorage.prevEntriesJSON:', localStorage.prevEntriesJSON);
 }
 
 window.addEventListener('beforeunload', handleUnload);
