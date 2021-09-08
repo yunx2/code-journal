@@ -11,10 +11,10 @@ const $photoUrlInput = $entryForm.elements[1];
 
 
 function handleUrlInput(e) {
-  const $photoPreview = document.getElementById('photo-preview');
+  // const $photoPreview = document.getElementById('photo-preview');
   // console.log('$photoPreview:', $photoPreview);
   // console.log('target.value',  e.target.value);
-  $photoPreview.setAttribute('src', e.target.value);
+  $photoUrlInput.setAttribute('src', e.target.value);
   // console.log('$photoPreview:', $photoPreview);
 }
 
@@ -30,7 +30,7 @@ function handleSubmit(e) {
   e.preventDefault();
   // console.log('e.target', e.target);
   // console.log('e.target.value', e.target.value);
-  const entry = $entryForm.elements[2].value;;
+  const entry = $entryForm.elements[2].value;
   // const $entryForm = document.getElementById('entry-form');
   // console.log('$entry.elements', $entry.elements);
   const title = $entryForm.elements[0].value;
@@ -47,6 +47,12 @@ function handleSubmit(e) {
 //    console.log('nextEntryId, before increment: ', data.nextEntryId);
   data.nextEntryId++;
 //   console.log('nextEntryId, after increment: ', data.nextEntryId);
+  data.entries.unshift(inputData);
+  console.log(data.entries);
+  $entryForm.reset();
+  const placeholderUrl = './images/placeholder-image-square.jpg';
+  $photoUrlInput.setAttribute('src', placeholderUrl);
+
 }
 
 $entryForm.addEventListener('submit', e => handleSubmit(e));
