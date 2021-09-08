@@ -4,10 +4,17 @@ body {
 }
 
 .entry-img {
-  width: 100%;
+  /* width: 340px; */
   border-radius: 4px;
   margin-bottom: 20px;
+  width: 100%;
 }
+
+/* @media screen and (min-width: 768px) {
+  .entry-img {
+    width: 345px;
+  }
+} */
 
 .page-header {
   background-color: #562b81;
@@ -21,7 +28,8 @@ body {
   padding: 0 1.5rem;
 }
 
-.form-heading {
+.form-heading,
+.entries-heading {
   font-size: 30px;
   font-family: 'Proza Libre', sans-serif;
   line-height: 40px;
@@ -45,7 +53,8 @@ body {
   height: 40px;
 }
 
-.form-label {
+.form-label,
+.entry-title {
   font-family: 'Proza Libre', sans-serif;
   font-weight: 600;
 }
@@ -74,4 +83,19 @@ textarea#notes {
 
 .entries-list {
   list-style-type: none;
+  padding-left: 0;
+}
+
+.entry-title {
+  font-size: 24px;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.tag-new {
+  width: 60px;
 }
