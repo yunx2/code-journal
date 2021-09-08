@@ -3,6 +3,10 @@ body {
   background-color: #f0f0f0;
 }
 
+.flex-container {
+  display: flex;
+}
+
 .entry-img {
   /* width: 340px; */
   border-radius: 4px;
@@ -24,6 +28,8 @@ body {
 .page-header-text {
   font-size: 20px;
   font-weight: 400;
+
+  /* width: 50%; */
   width: 100%;
   padding: 0 1.5rem;
 }
@@ -98,4 +104,8 @@ textarea#notes {
 
 .tag-new {
   width: 60px;
+}
+
+.nav {
+  margin-top: 16px;
 }
