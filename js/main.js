@@ -54,7 +54,7 @@ function handleSubmit(e) {
   $photoUrlInput.setAttribute('src', placeholderUrl);
 //   localStorage.setItem('prevEntriesJSON', JSON.stringify(data.entries));
 //   console.log('localStorage.prevEntriesJSON:', localStorage.prevEntriesJSON)
-// }
+}
 
 $entryForm.addEventListener('submit', e => handleSubmit(e));
 
