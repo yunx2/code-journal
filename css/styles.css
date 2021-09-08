@@ -4,16 +4,10 @@ body {
 }
 
 .entry-img {
-  /* object-fit: contain; */
   width: 100%;
   border-radius: 4px;
   margin-bottom: 20px;
 }
-
-/* .heading-font {
-  font-family: 'Proza Libre', sans-serif;
-} */
-
 
 .page-header {
   background-color: #562b81;
@@ -25,12 +19,9 @@ body {
   font-weight: 400;
   width: 100%;
   padding: 0 1.5rem;
-  font-family: 'Proza Libre', sans-serif;
-  line-height: 27px;
 }
 
 .form-heading {
-  font-weight:600;
   font-size: 30px;
   font-family: 'Proza Libre', sans-serif;
   line-height: 40px;;
