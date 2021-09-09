@@ -59,9 +59,12 @@ const viewNodeList = document.querySelectorAll('.view');
 function swapView() {
   viewNodeList.forEach(node => {
     const data = node.getAttribute('data-view');
-    data === view
-      ? node.classList.remove('hidden')
-      : node.classList.add('hidden');
+    if (data === view) {
+      node.classList.remove('hidden');
+      node.scrollIntoView();
+    } else {
+      node.classList.add('hidden');
+    }
   });
 }
 
