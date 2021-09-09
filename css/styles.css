@@ -5,7 +5,6 @@ body {
 
 .page-header-container {
   display: flex;
-  justify-content: flex-start;
   align-items: baseline;
   padding: 0 0;
 }
@@ -115,4 +114,9 @@ textarea#notes {
 #entries-link {
   color: white;
   text-decoration: none;
+}
+
+#no-entries-recorded {
+  text-align: center;
+  width: 100%;
 }
