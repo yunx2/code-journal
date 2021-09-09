@@ -66,8 +66,9 @@ function createEntryElement(entry) {
   $title.textContent = title;
   // edit button
   const $editButton = document.createElement('button');
-  $editButton.innerHTML = '<i class="fas fa-pen" aria-hidden="true"></i>';
-  // console.log('$editButton', $editButton);
+  $editButton.classList.add('btn-edit');
+  $editButton.innerHTML = '<i class="fas fa-pen"></i>';
+
   const $entryPara = document.createElement('p');
   $entryPara.textContent = journalEntry;
   $colHalfEntry.append($title, $entryPara, $editButton);
