@@ -47,6 +47,7 @@ function handleSubmit(e) {
 
     const $updated = createEntryElement(inputData);
     const $previous = document.querySelector(`[data-entry-id='${editing}']`);
+    console.log('$previous', $previous);
 
     $previous.replaceWith($updated);
     // change value of editing when finished
@@ -56,12 +57,12 @@ function handleSubmit(e) {
     idCount++;
     entries.unshift(inputData);
     view = 'entries';
-    $entryForm.reset();
-    const placeholderUrl = './images/placeholder-image-square.jpg';
-    $photoPreview.setAttribute('src', placeholderUrl);
     createAndAdd(inputData);
   }
-  // always switch to entries view on submit
+  // always switch to entries view on submit and reset form
+  const placeholderUrl = './images/placeholder-image-square.jpg';
+  $photoPreview.setAttribute('src', placeholderUrl);
+  $entryForm.reset();
   view = 'entries';
   swapView();
 }
