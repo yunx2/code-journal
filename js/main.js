@@ -60,11 +60,14 @@ $newButton.addEventListener('click', () => {
 });
 
 function handleEdit({ target }) {
-  // console.log('target tagname:', target.tagName);
-  if (target.tagName === 'BUTTON') {
+  // console.log('target tagname:', e.target.tagName);
+  if (target.tagName === 'I') {
+    // console.log('target tagname:', target.tagName);
     // gets closest item matching the selector in argument
     const $closest = target.closest('article');
-    console.log('closest:', $closest);
+    // console.log('closest:', $closest);
+    view = 'entry-form';
+    swapView();
   }
 }
 
