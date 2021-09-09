@@ -18,7 +18,7 @@ var data = {
 let entries = [];
 let idCount = 1;
 let view = 'entry-form';
-const editing = null;
+var editing = null;
 
 const $entriesList = document.getElementById('entries-ul');
 

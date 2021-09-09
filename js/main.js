@@ -9,19 +9,12 @@ const $entryTextarea = formELements['entry-notes'];
 const $photoPreview = document.getElementById('photo-preview');
 
 function createAndAdd(entry) {
-  // create DOM element from entry object
   const $el = createEntryElement(entry);
   // hide 'no-entries' object
   document.getElementById('no-entries-recorded').classList.add('hidden');
   const $firstListItem = document.querySelector('li:first-child');
   $firstListItem.prepend($el);
 }
-// only removes from page
-// function removeEntry(id) {
-//   const $entry = document.querySelector(`[data-entry-id='${id}']`);
-//   $entry.remove();
-//   console.log('entry', $entry);
-// }
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
 function handleUrlInput(e) {
@@ -92,7 +85,6 @@ $newButton.addEventListener('click', () => {
 
 function prepopulateForm(entry) {
   const { title, photoUrl, journalEntry } = entry;
-  // console.log('formElements', formElements);
   $photoUrlInput.value = photoUrl;
   $titleInput.value = title;
   $entryTextarea.value = journalEntry;
@@ -100,19 +92,14 @@ function prepopulateForm(entry) {
 }
 
 function handleEdit({ target }) {
-  // console.log('target tagname:', e.target.tagName);
   if (!(target.tagName === 'I')) {
     return;
   }
-  // console.log('target tagname:', target.tagName);
   // gets closest item matching the selector in argument
   const $entry = target.closest('article');
-  // console.log('closest:', $entry);
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
   console.log('id:', id);
-  // get entry from entries array using id
   const entry = entries.find(e => e.entryId === id);
-  // console.log('entry match:', entry, 'id', id);
   view = 'entry-form';
   swapView();
   prepopulateForm(entry);
