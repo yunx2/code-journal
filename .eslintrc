@@ -12,7 +12,7 @@
     "standard"
   ],
   "rules": {
-    "no-var": "off",
+    "no-var": 0,
     "semi": [
       "error",
       "always"
@@ -26,15 +26,7 @@
       "error",
       "multi-line"
     ],
-    "no-console": [
-      "error",
-      {
-        "allow": [
-          "warn",
-          "error"
-        ]
-      }
-    ],
+    "no-console": 0,
     "space-before-function-paren": [
       "error",
       {
@@ -42,7 +34,9 @@
         "named": "never",
         "asyncArrow": "always"
       }
-    ]
+    ],
+    "no-undef": 0,
+    "no-unused-vars": 0
   },
   "overrides": [
     {
