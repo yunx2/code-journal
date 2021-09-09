@@ -1,12 +1,25 @@
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
+}
+
+.page-header-container {
+  display: flex;
+  align-items: baseline;
+  padding: 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .page-header-container {
+    max-width: 900px;
+    padding: 0 0.75rem;
+  }
 }
 
 .entry-img {
-  width: 100%;
   border-radius: 4px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .page-header {
@@ -17,20 +30,21 @@ body {
 .page-header-text {
   font-size: 20px;
   font-weight: 400;
-  width: 100%;
+  min-width: 150px;
   padding: 0 1.5rem;
+  margin-bottom: 0;
 }
 
-.form-heading {
+.form-heading,
+.entries-heading {
   font-size: 30px;
   font-family: 'Proza Libre', sans-serif;
-  line-height: 40px;;
+  line-height: 40px;
 }
-
 
 .form-controls {
   border-radius: 4px;
-  border: 1px solid #B6B6B6;
+  border: 1px solid #b6b6b6;
   width: 100%;
   font-size: 16px;
   margin-top: 10px;
@@ -46,7 +60,8 @@ body {
   height: 40px;
 }
 
-.form-label {
+.form-label,
+.entry-title {
   font-family: 'Proza Libre', sans-serif;
   font-weight: 600;
 }
@@ -68,7 +83,40 @@ textarea#notes {
   font-weight: 600;
   line-height: 21px;
   font-size: 16px;
-   margin-bottom: 20px;
-   width: 70px;
-   height: 35px;
+  margin-bottom: 20px;
+  width: 70px;
+  height: 35px;
+}
+
+.entries-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.entry-title {
+  font-size: 24px;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.btn-new {
+  width: 60px;
+}
+
+.nav {
+  margin-top: 16px;
+}
+
+#entries-link {
+  color: white;
+  text-decoration: none;
+}
+
+#no-entries-recorded {
+  text-align: center;
+  width: 100%;
 }

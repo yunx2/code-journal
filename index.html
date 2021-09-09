@@ -18,22 +18,28 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="">
-  <!-- header in every view and static -->
+  <!-- page header and nav -->
   <header class="row page-header">
-    <div class="column-full"><h1 class="page-header-text">Code Journal</h1></div>
-
+    <div class="column-full container page-header-container">
+      <h1 class="page-header-text">Code Journal</h1>
+      <nav class="nav">
+        <a href="#view-entries">
+          <button id="btn-entries" class="btn">Entries</button>
+        </a>
+      </nav>
+    </div>
   </header>
   <main class="container">
-    <!-- row 1 -->
-    <form class="row" id="entry-form" data-view="entry-form">
+    <!-- entry form view-->
+    <form class="row view" id="entry-form" data-view="entry-form">
       <div class="column-full">
         <h2 class="form-heading">New Entry</h2>
       </div>
-      <!-- left half -->
+      <!-- photo preview -->
       <div class="column-half" >
         <img class="entry-img" id="photo-preview" src="./images/placeholder-image-square.jpg" alt="placeholder-img">
       </div>
-      <!-- right half -->
+      <!-- entry text -->
       <div class="column-half" id="">
         <label for="title" class="form-label">Title</label>
         <div>
@@ -46,11 +52,21 @@
       </div>
       <div class="column-full form-textarea" id="entry-text">
         <label for="journal-entry" class="form-label">Notes</label>
-        <!-- put back required -->
         <div><textarea id="journal-entry" rows="5" name="entry-notes" class="form-controls" required></textarea></div>
         <div class="row btn-container"><input type="submit" value="SAVE" class="btn"></div>
       </div>
     </form>
+    <!-- entries view -->
+    <div class="row view" data-view="entries" id="view-entries">
+      <div class="column-full heading-container">
+        <h2 class="entries-heading">Entries</h2>
+        <a class="" href="#entry-form"><button type="button" id="btn-new" class="btn-new btn">NEW</button></a>
+      </div>
+      <div id="no-entries-recorded">No entries have been recorded</div>
+      <ul class="entries-list" id="entries-ul">
+        <li></li>
+      </ul>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

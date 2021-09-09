@@ -2,17 +2,23 @@
 /* exported data */
 
 const $entryForm = document.getElementById('entry-form');
-
 const $photoUrlInput = $entryForm.elements[1];
 const $photoPreview = document.getElementById('photo-preview');
 
+function createAndAdd(entry) {
+  // create DOM element from entry object
+  const $el = createEntryElement(entry);
+  // hide 'no-entries' object
+  document.getElementById('no-entries-recorded').classList.add('hidden');
+  const $firstListItem = document.querySelector('li:first-child');
+  $firstListItem.prepend($el);
+}
 
+// 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
+// 'load' event does wait for the page and all resources to completely load before firing
 function handleUrlInput(e) {
   $photoPreview.setAttribute('src', e.target.value);
 }
-
-$photoUrlInput.addEventListener('input', e => handleUrlInput(e));
-
 
 function handleSubmit(e) {
   e.preventDefault();
@@ -25,17 +31,30 @@ function handleSubmit(e) {
     photoUrl: url,
     title: title
   };
-  data.nextEntryId++;
-  data.entries.unshift(inputData);
+  idCount++;
+  entries.unshift(inputData);
+  view = 'entries';
   $entryForm.reset();
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
+  createAndAdd(inputData);
+  view = 'entries';
+  swapView();
 }
 
+// attach event handlers
 $entryForm.addEventListener('submit', e => handleSubmit(e));
+$photoUrlInput.addEventListener('input', e => handleUrlInput(e));
 
-function handleUnload() {
-  localStorage.setItem('prevEntriesJSON', JSON.stringify(data.entries));
-}
+// click handlers for view-swapping
+const $entriesButton = document.getElementById('btn-entries');
+$entriesButton.addEventListener('click', () => {
+  view = 'entries';
+  swapView();
+});
 
-window.addEventListener('beforeunload', handleUnload);
+const $newButton = document.getElementById('btn-new');
+$newButton.addEventListener('click', () => {
+  view = 'entry-form';
+  swapView();
+});
