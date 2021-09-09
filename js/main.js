@@ -25,22 +25,38 @@ function handleUrlInput(e) {
 
 function handleSubmit(e) {
   e.preventDefault();
-  const entry = $entryForm.elements[2].value;
-  const title = $entryForm.elements[0].value;
-  const url = $entryForm.elements[1].value;
+  const entry = $entryTextarea.value;
+  const title = $titleInput.value;
+  const url = $photoUrlInput.value;
   const inputData = {
-    entryId: idCount,
+    // entryId: idCount,
     journalEntry: entry,
     photoUrl: url,
     title: title
   };
-  idCount++;
-  entries.unshift(inputData);
-  view = 'entries';
-  $entryForm.reset();
-  const placeholderUrl = './images/placeholder-image-square.jpg';
-  $photoPreview.setAttribute('src', placeholderUrl);
-  createAndAdd(inputData);
+  if (editing) {
+    inputData.entryId = editing;
+    // search entries array for entry with matchingid and replace wiht updated entry
+    // set value of entries to new array
+    entries = entries.map(current => {
+      if (current.entryId === inputData.id) {
+        return inputData;
+      }
+      return current;
+    });
+    // change value of editing when finished
+    editing = null;
+  } else {
+    inputData.entryId = idCount;
+    idCount++;
+    entries.unshift(inputData);
+    view = 'entries';
+    $entryForm.reset();
+    const placeholderUrl = './images/placeholder-image-square.jpg';
+    $photoPreview.setAttribute('src', placeholderUrl);
+    createAndAdd(inputData);
+  }
+  // always witch to entries view on submit
   view = 'entries';
   swapView();
 }
@@ -82,11 +98,13 @@ function handleEdit({ target }) {
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
   // console.log('id:', entryId);
   // get entry from entries array using id
-  const entry = entries.find(e => e.entryId === id);
-  console.log('entry match:', entry, 'id', id);
-  view = 'entry-form';
-  swapView();
-  prepopulateForm(entry);
+  // const entry = entries.find(e => e.entryId === id);
+  // console.log('entry match:', entry, 'id', id);
+  // view = 'entry-form';
+  // swapView();
+  // prepopulateForm(entry);
+  editing = id; // id is number!!!
+  // console.log('data.editing:', editing);
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));

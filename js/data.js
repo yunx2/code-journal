@@ -18,6 +18,7 @@ var data = {
 let entries = [];
 let idCount = 1;
 let view = 'entry-form';
+const editing = null;
 
 const $entriesList = document.getElementById('entries-ul');
 
@@ -39,6 +40,7 @@ function handleUnload() {
   data.entries = entries;
   data.nextEntryId = idCount;
   data.view = view;
+  data.editing = editing;
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('dataJSON', dataJSON);
 }
