@@ -126,3 +126,8 @@ textarea#notes {
   color: #562b81;
   font-size: 26px;
 }
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+}
