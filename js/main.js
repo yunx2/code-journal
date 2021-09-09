@@ -35,17 +35,22 @@ function handleSubmit(e) {
     title: title
   };
   if (editing) {
+    console.log('inputData', inputData);
+    console.log('editing:', editing);
     inputData.entryId = editing;
     // search entries array for entry with matchingid and replace wiht updated entry
     // set value of entries to new array
     entries = entries.map(current => {
-      if (current.entryId === inputData.id) {
+      if (current.entryId === inputData.entryId) {
         return inputData;
       }
       return current;
     });
     // change value of editing when finished
     editing = null;
+    console.log('editing after update', editing);
+    console.log('entries array after update', entries);
+
   } else {
     inputData.entryId = idCount;
     idCount++;
@@ -84,6 +89,7 @@ function prepopulateForm(entry) {
   $photoUrlInput.value = photoUrl;
   $titleInput.value = title;
   $entryTextarea.value = journalEntry;
+  $photoPreview.setAttribute('src', photoUrl);
 }
 
 function handleEdit({ target }) {
@@ -96,15 +102,15 @@ function handleEdit({ target }) {
   const $entry = target.closest('article');
   // console.log('closest:', $entry);
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
-  // console.log('id:', entryId);
+  console.log('id:', id);
   // get entry from entries array using id
-  // const entry = entries.find(e => e.entryId === id);
+  const entry = entries.find(e => e.entryId === id);
   // console.log('entry match:', entry, 'id', id);
-  // view = 'entry-form';
-  // swapView();
-  // prepopulateForm(entry);
+  view = 'entry-form';
+  swapView();
+  prepopulateForm(entry);
   editing = id; // id is number!!!
-  // console.log('data.editing:', editing);
+  console.log('editing:', editing);
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));
