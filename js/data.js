@@ -55,19 +55,24 @@ function createEntryElement(entry) {
   $colHalfImg.classList.add('column-half');
   const $colHalfEntry = document.createElement('div');
   $colHalfEntry.classList.add('column-half');
-  // elements that use data from entry object
+  // entry image
   const $photo = document.createElement('img');
   $photo.classList.add('entry-img');
   $photo.setAttribute('src', photoUrl);
   $colHalfImg.append($photo);
+  // entry title
   const $title = document.createElement('h3');
   $title.classList.add('entry-title');
   $title.textContent = title;
+  // edit button
+  const $editButton = document.createElement('button');
+  $editButton.innerHTML = '<i class="fas fa-pen" aria-hidden="true"></i>';
+  // console.log('$editButton', $editButton);
   const $entryPara = document.createElement('p');
   $entryPara.textContent = journalEntry;
-  $colHalfEntry.append($title, $entryPara);
+  $colHalfEntry.append($title, $entryPara, $editButton);
   $article.append($colHalfImg, $colHalfEntry);
-  // append article to outermost element
+
   $entriesListItem.appendChild($article);
   // return outermost element
   return $entriesListItem;
@@ -97,6 +102,8 @@ function handlePageLoad() {
 // attach event listeners
 window.addEventListener('beforeunload', handleUnload);
 document.addEventListener('DOMContentLoaded', handlePageLoad);
+
+// functions for helping debug
 
 function clearData() {
   localStorage.clear();
