@@ -49,7 +49,7 @@ function createEntryElement(entry) {
   const $entriesListItem = document.createElement('li'); // outermost element
   const $article = document.createElement('article');
   $article.classList.add('row');
-  $article.setAttribute('data-entryId', entryId);
+  $article.setAttribute('data-entry-id', entryId);
   // children of $article
   const $colHalfImg = document.createElement('div');
   $colHalfImg.classList.add('column-half');
@@ -66,12 +66,15 @@ function createEntryElement(entry) {
   $title.textContent = title;
   // edit button
   const $editButton = document.createElement('button');
-  $editButton.classList.add('btn-edit');
+  $editButton.className = 'btn-edit';
   $editButton.innerHTML = '<i class="fas fa-pen"></i>';
+  const $entryItemHeader = document.createElement('div');
+  $entryItemHeader.className = 'item-header';
+  $entryItemHeader.append($title, $editButton);
 
   const $entryPara = document.createElement('p');
   $entryPara.textContent = journalEntry;
-  $colHalfEntry.append($title, $entryPara, $editButton);
+  $colHalfEntry.append($entryItemHeader, $entryPara);
   $article.append($colHalfImg, $colHalfEntry);
 
   $entriesListItem.appendChild($article);
