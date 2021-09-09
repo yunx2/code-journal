@@ -70,12 +70,27 @@ function createAndAdd(entry) {
   $firstListItem.prepend($el);
 }
 
+const viewNodeList = document.querySelectorAll('.view');
+// console.log('viewNodeList:', viewNodeList);
+
+function swapView(view) {
+  viewNodeList.forEach(node => {
+    const data = node.getAttribute('data-view');
+    if (data === view) {
+      node.classList.remove('hidden');
+    } else {
+      node.classList.add('hidden');
+    }
+  });
+}
+
 function handlePageLoad() {
   // access localstorage at key 'dataJSON' and parse value back into JS
   const storedData = JSON.parse(localStorage.getItem('dataJSON'));
-  // set entries array entres
+  // intialized entries, idCount, and view variables with data from stored object
   entries = storedData.entries;
   idCount = storedData.nextEntryId;
+  view = storedData.view;
   // check that the entries array exists and has at least on eentry in it
   if (entries && (entries.length > 0)) {
     // hide 'no entries' message
@@ -87,6 +102,7 @@ function handlePageLoad() {
       createAndAdd(current);
     });
   }
+  // swapView(view);
 }
 
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
@@ -109,6 +125,7 @@ function handleSubmit(e) {
   };
   idCount++;
   entries.unshift(inputData);
+  view = 'entries';
   // console.log('entries after submit:', entries);
   // console.log('data.entries:', data.entries
   $entryForm.reset();
@@ -128,13 +145,18 @@ window.addEventListener('beforeunload', handleUnload);
 document.addEventListener('DOMContentLoaded', handlePageLoad);
 
 // click handlers for view-swapping
+// handlers change the value of view variable and add 'hidden' class to all other views
+// all 'active' to selected view
 
 const $entriesButton = document.getElementById('btn-entries');
 $entriesButton.addEventListener('click', () => {
   view = 'entries';
+  swapView(view);
+  // console.log('viewNodeList:', viewNodeList);
 });
 
 const $newButton = document.getElementById('btn-new');
 $newButton.addEventListener('click', () => {
   view = 'entry-form';
+  swapView(view);
 });
