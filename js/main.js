@@ -16,7 +16,12 @@ function createAndAdd(entry) {
   const $firstListItem = document.querySelector('li:first-child');
   $firstListItem.prepend($el);
 }
-
+// only removes from page
+function removeEntry(id) {
+  const $entry = document.querySelector(`[data-entry-id='${id}']`);
+  $entry.remove();
+  console.log('entry', $entry);
+}
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
 function handleUrlInput(e) {
@@ -29,7 +34,6 @@ function handleSubmit(e) {
   const title = $titleInput.value;
   const url = $photoUrlInput.value;
   const inputData = {
-    // entryId: idCount,
     journalEntry: entry,
     photoUrl: url,
     title: title
@@ -38,6 +42,7 @@ function handleSubmit(e) {
     console.log('inputData', inputData);
     console.log('editing:', editing);
     inputData.entryId = editing;
+    console.log('inputData', inputData);
     // search entries array for entry with matchingid and replace wiht updated entry
     // set value of entries to new array
     entries = entries.map(current => {
@@ -46,11 +51,13 @@ function handleSubmit(e) {
       }
       return current;
     });
+    // console.log('editing after update', editing);
+    // console.log('entries array after update', entries);
+    // find find and remove old entry, prepend updated
+    removeEntry(editing);
+    createAndAdd(inputData);
     // change value of editing when finished
     editing = null;
-    console.log('editing after update', editing);
-    console.log('entries array after update', entries);
-
   } else {
     inputData.entryId = idCount;
     idCount++;
@@ -61,7 +68,7 @@ function handleSubmit(e) {
     $photoPreview.setAttribute('src', placeholderUrl);
     createAndAdd(inputData);
   }
-  // always witch to entries view on submit
+  // always switch to entries view on submit
   view = 'entries';
   swapView();
 }
