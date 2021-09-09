@@ -17,11 +17,11 @@ function createAndAdd(entry) {
   $firstListItem.prepend($el);
 }
 // only removes from page
-function removeEntry(id) {
-  const $entry = document.querySelector(`[data-entry-id='${id}']`);
-  $entry.remove();
-  console.log('entry', $entry);
-}
+// function removeEntry(id) {
+//   const $entry = document.querySelector(`[data-entry-id='${id}']`);
+//   $entry.remove();
+//   console.log('entry', $entry);
+// }
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
 function handleUrlInput(e) {
@@ -51,11 +51,11 @@ function handleSubmit(e) {
       }
       return current;
     });
-    // console.log('editing after update', editing);
-    // console.log('entries array after update', entries);
-    // find find and remove old entry, prepend updated
-    removeEntry(editing);
-    createAndAdd(inputData);
+
+    const $updated = createEntryElement(inputData);
+    const $previous = document.querySelector(`[data-entry-id='${editing}']`);
+
+    $previous.replaceWith($updated);
     // change value of editing when finished
     editing = null;
   } else {
