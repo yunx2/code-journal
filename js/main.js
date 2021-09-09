@@ -26,7 +26,7 @@ function handleSubmit(e) {
   const title = $entryForm.elements[0].value;
   const url = $entryForm.elements[1].value;
   const inputData = {
-    entryId: data.nextEntryId,
+    entryId: idCount,
     journalEntry: entry,
     photoUrl: url,
     title: title
@@ -58,3 +58,14 @@ $newButton.addEventListener('click', () => {
   view = 'entry-form';
   swapView();
 });
+
+function handleEdit({ target }) {
+  // console.log('target tagname:', target.tagName);
+  if (target.tagName === 'BUTTON') {
+    // gets closest item matching the selector in argument
+    const $closest = target.closest('article');
+    console.log('closest:', $closest);
+  }
+}
+
+$entriesList.addEventListener('click', e => handleEdit(e));
