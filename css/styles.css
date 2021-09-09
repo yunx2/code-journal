@@ -3,24 +3,25 @@ body {
   background-color: #f0f0f0;
 }
 
-.flex-container {
+.page-header-container {
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
+  padding: 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .page-header-container {
+    max-width: 900px;
+    padding: 0 0.75rem;
+  }
 }
 
 .entry-img {
-  /* width: 340px; */
   border-radius: 4px;
   margin-bottom: 20px;
   width: 100%;
 }
-
-/* @media screen and (min-width: 768px) {
-  .entry-img {
-    width: 345px;
-  }
-} */
 
 .page-header {
   background-color: #562b81;
@@ -31,8 +32,6 @@ body {
   font-size: 20px;
   font-weight: 400;
   min-width: 150px;
-
-  /* width: 100%; */
   padding: 0 1.5rem;
   margin-bottom: 0;
 }
