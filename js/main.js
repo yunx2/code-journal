@@ -12,8 +12,6 @@ function handleUnload() {
   data.nextEntryId = idCount;
   data.view = view;
   const dataJSON = JSON.stringify(data);
-  // console.log('entries before unload:', entries);
-  // console.log('idCount before unload:', idCount);
   localStorage.setItem('dataJSON', dataJSON);
 }
 
@@ -21,7 +19,6 @@ function createEntryElement(entry) {
   const { entryId, journalEntry, photoUrl, title } = entry;
   // first create container elements
   const $entriesListItem = document.createElement('li'); // outermost element
-
   const $article = document.createElement('article');
   $article.classList.add('row');
   $article.setAttribute('data-entryId', entryId);
@@ -35,30 +32,18 @@ function createEntryElement(entry) {
   $photo.classList.add('entry-img');
   $photo.setAttribute('src', photoUrl);
   $colHalfImg.append($photo);
-
   const $title = document.createElement('h3');
   $title.classList.add('entry-title');
   $title.textContent = title;
   const $entryPara = document.createElement('p');
   $entryPara.textContent = journalEntry;
   $colHalfEntry.append($title, $entryPara);
-
   $article.append($colHalfImg, $colHalfEntry);
+  // append article to outermost element
   $entriesListItem.appendChild($article);
-
+  // return outermost element
   return $entriesListItem;
-  // console.log('$entriesListItem:', $entriesListItem);
-  // console.log('entryId:', entryId);
-  // console.log('title:', title);
-  // console.log('entryId:', entryId);
 }
-
-// $firstListItem.prepend(createEntryElement(dummyEntry));
-// console.log('$entriesList:', $entriesList);
-// $entriesList.prepend(createEntryElement(dummyEntry));
-// console.log('prepended $entriesList:', $entriesList);
-// console.log('$entriesList:', $entriesList);
-// previousEntries.push(dummyEntry);
 
 function createAndAdd(entry) {
   // create DOM element from entry object
@@ -70,16 +55,13 @@ function createAndAdd(entry) {
 }
 
 const viewNodeList = document.querySelectorAll('.view');
-// console.log('viewNodeList:', viewNodeList);
 
 function swapView() {
   viewNodeList.forEach(node => {
     const data = node.getAttribute('data-view');
-    if (data === view) {
-      node.classList.remove('hidden');
-    } else {
-      node.classList.add('hidden');
-    }
+    data === view
+      ? node.classList.remove('hidden')
+      : node.classList.add('hidden');
   });
 }
 
@@ -107,12 +89,10 @@ function handlePageLoad() {
       $entriesList.append($current);
     });
   }
-
 }
 
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
-
 function handleUrlInput(e) {
   $photoPreview.setAttribute('src', e.target.value);
 }
@@ -131,23 +111,18 @@ function handleSubmit(e) {
   idCount++;
   entries.unshift(inputData);
   view = 'entries';
-  // console.log('entries after submit:', entries);
-  // console.log('data.entries:', data.entries
   $entryForm.reset();
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
   createAndAdd(inputData);
   view = 'entries';
   swapView();
-  // $entryForm.classList.add('hidden');
 }
 
 // attach event handlers
 $entryForm.addEventListener('submit', e => handleSubmit(e));
 $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
-// document.addEventListener('load', e => {
-//   $entryForm.classList.remove('hidden');
-// });
+
 window.addEventListener('beforeunload', handleUnload);
 document.addEventListener('DOMContentLoaded', handlePageLoad);
 
@@ -159,7 +134,6 @@ const $entriesButton = document.getElementById('btn-entries');
 $entriesButton.addEventListener('click', () => {
   view = 'entries';
   swapView();
-  // console.log('viewNodeList:', viewNodeList);
 });
 
 const $newButton = document.getElementById('btn-new');
@@ -168,9 +142,10 @@ $newButton.addEventListener('click', () => {
   swapView();
 });
 
-//
-
 // function clearData() {
 //   localStorage.clear();
 //   entries = [];
+//   idCount = 1;
+//   view = 'entry-form';
+//   window.location.reload();
 // }
