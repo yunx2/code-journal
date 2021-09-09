@@ -53,7 +53,6 @@ function createEntryElement(entry) {
   // console.log('entryId:', entryId);
 }
 
-// const $entriesList = document.getElementById('entries-ul');
 // $firstListItem.prepend(createEntryElement(dummyEntry));
 // console.log('$entriesList:', $entriesList);
 // $entriesList.prepend(createEntryElement(dummyEntry));
@@ -73,7 +72,7 @@ function createAndAdd(entry) {
 const viewNodeList = document.querySelectorAll('.view');
 // console.log('viewNodeList:', viewNodeList);
 
-function swapView(view) {
+function swapView() {
   viewNodeList.forEach(node => {
     const data = node.getAttribute('data-view');
     if (data === view) {
@@ -84,6 +83,8 @@ function swapView(view) {
   });
 }
 
+const $entriesList = document.getElementById('entries-ul');
+
 function handlePageLoad() {
   // access localstorage at key 'dataJSON' and parse value back into JS
   const storedData = JSON.parse(localStorage.getItem('dataJSON'));
@@ -91,6 +92,7 @@ function handlePageLoad() {
   entries = storedData.entries;
   idCount = storedData.nextEntryId;
   view = storedData.view;
+  swapView();
   // check that the entries array exists and has at least on eentry in it
   if (entries && (entries.length > 0)) {
     // hide 'no entries' message
@@ -98,11 +100,14 @@ function handlePageLoad() {
     $message.classList.add('hidden');
     // iterate through storedEntries, create a <li> element from each entry object;
     // attach created elements to DOM
+    // entries is already in reverse chronologiccal order, so just append
+    // in the same order as array
     entries.forEach(current => {
-      createAndAdd(current);
+      const $current = createEntryElement(current);
+      $entriesList.append($current);
     });
   }
-  // swapView(view);
+
 }
 
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
@@ -132,6 +137,8 @@ function handleSubmit(e) {
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
   createAndAdd(inputData);
+  view = 'entries';
+  swapView();
   // $entryForm.classList.add('hidden');
 }
 
@@ -151,12 +158,19 @@ document.addEventListener('DOMContentLoaded', handlePageLoad);
 const $entriesButton = document.getElementById('btn-entries');
 $entriesButton.addEventListener('click', () => {
   view = 'entries';
-  swapView(view);
+  swapView();
   // console.log('viewNodeList:', viewNodeList);
 });
 
 const $newButton = document.getElementById('btn-new');
 $newButton.addEventListener('click', () => {
   view = 'entry-form';
-  swapView(view);
+  swapView();
 });
+
+//
+
+// function clearData() {
+//   localStorage.clear();
+//   entries = [];
+// }
