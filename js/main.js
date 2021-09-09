@@ -61,14 +61,20 @@ $newButton.addEventListener('click', () => {
 
 function handleEdit({ target }) {
   // console.log('target tagname:', e.target.tagName);
-  if (target.tagName === 'I') {
-    // console.log('target tagname:', target.tagName);
-    // gets closest item matching the selector in argument
-    const $closest = target.closest('article');
-    // console.log('closest:', $closest);
-    view = 'entry-form';
-    swapView();
+  if (!(target.tagName === 'I')) {
+    return;
   }
+  // console.log('target tagname:', target.tagName);
+  // gets closest item matching the selector in argument
+  const $entry = target.closest('article');
+  // console.log('closest:', $entry);
+  const id = Number.parseInt($entry.getAttribute('data-entry-id'));
+  // console.log('id:', entryId);
+  // get entry from entries array using id
+  const entry = entries.find(e => e.entryId === id);
+  console.log('entry match:', entry, 'id', id);
+//   view = 'entry-form';
+//   swapView();
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));
