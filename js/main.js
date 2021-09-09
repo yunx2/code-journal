@@ -2,7 +2,10 @@
 /* exported data */
 
 const $entryForm = document.getElementById('entry-form');
-const $photoUrlInput = $entryForm.elements[1];
+const formELements = $entryForm.elements;
+const $titleInput = formELements['entry-title'];
+const $photoUrlInput = formELements['entry-url'];
+const $entryTextarea = formELements['entry-notes'];
 const $photoPreview = document.getElementById('photo-preview');
 
 function createAndAdd(entry) {
@@ -59,6 +62,14 @@ $newButton.addEventListener('click', () => {
   swapView();
 });
 
+function prepopulateForm(entry) {
+  const { title, photoUrl, journalEntry } = entry;
+  // console.log('formElements', formElements);
+  $photoUrlInput.value = photoUrl;
+  $titleInput.value = title;
+  $entryTextarea.value = journalEntry;
+}
+
 function handleEdit({ target }) {
   // console.log('target tagname:', e.target.tagName);
   if (!(target.tagName === 'I')) {
@@ -73,8 +84,9 @@ function handleEdit({ target }) {
   // get entry from entries array using id
   const entry = entries.find(e => e.entryId === id);
   console.log('entry match:', entry, 'id', id);
-//   view = 'entry-form';
-//   swapView();
+  view = 'entry-form';
+  swapView();
+  prepopulateForm(entry);
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));
