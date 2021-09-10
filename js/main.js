@@ -119,7 +119,22 @@ function handleEdit({ target }) {
 $entriesList.addEventListener('click', e => handleEdit(e));
 // feature 4: delete handler
 
+const $dialogBtnContainer = document.querySelector('.buttons-dialog');
+
+$dialogBtnContainer.addEventListener('click', e => {
+  if (e.target.id !== 'confirm' || e.target.id !== 'cancel') {
+    return;
+  }
+  if (e.target.id === 'confirm') {
+    console.log('clicked confirm');
+  } else {
+    console.log('clicked cancel');
+  }
+  $confirm.closest();
+});
+
 function handleDeleteClick(e) {
+  $confirm.showModal();
   // e.preventDefault();
   // console.log('deletehandler', e.target);
   // console.log('tagName on clicking delete', e.target.tagName);
@@ -127,7 +142,7 @@ function handleDeleteClick(e) {
   // e.stopPropagation()
   //  console.log('e.target closest button', e.target.closest('button'))
   // swapView('entry-form');
-  $confirm.showModal();
+
 }
 
 $delete.addEventListener('click', e => handleDeleteClick(e));
