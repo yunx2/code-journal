@@ -104,10 +104,6 @@ function handleEdit({ target }) {
 
 $entriesList.addEventListener('click', e => handleEdit(e));
 
-const $delete = document.querySelector('.delete');
-function showModal() {
-  const $modal = document.createElement('dialog');
+// const $delete = document.querySelector('.delete');
 
-}
-
-$delete.addEventListener('click');
+// $delete.addEventListener('click');
