@@ -138,11 +138,12 @@ function handleDelete() {
       break;
     }
   }
-  // data.editing = null;
+  data.editing = null;
   const $deletedEntry = document.querySelector(`[data-entry-id='${data.editing}']`);
   $deletedEntry.remove();
   $confirm.close();
   swapView('entries');
+  $entryForm.reset();
 
 }
 const $dialogBtnContainer = document.querySelector('.buttons-dialog');

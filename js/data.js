@@ -34,6 +34,7 @@ function swapView(swap) {
 // handle load and unload
 function handleUnload() {
 /* on unload stringify the data object in memory and store */
+  data.editing = null;
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('dataJSON', dataJSON);
 }
