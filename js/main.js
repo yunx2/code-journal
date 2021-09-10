@@ -7,6 +7,7 @@ const $titleInput = formELements['entry-title'];
 const $photoUrlInput = formELements['entry-url'];
 const $entryTextarea = formELements['entry-notes'];
 const $photoPreview = document.getElementById('photo-preview');
+const $delete = document.querySelector('.delete');
 
 function createAndAdd(entry) {
   const $el = createEntryElement(entry);
@@ -46,8 +47,9 @@ function handleSubmit(e) {
     const $updated = createEntryElement(inputData);
     const $previous = document.querySelector(`[data-entry-id='${data.editing}']`);
     $previous.replaceWith($updated);
-    // change value of editing when finished
+    // clean up
     data.editing = null;
+    $delete.style.visibility = 'hidden';
   } else {
     inputData.entryId = data.nextEntryId;
     data.nextEntryId = data.nextEntryId++;
@@ -100,6 +102,7 @@ function handleEdit({ target }) {
   data.view = 'entry-form';
   swapView();
   data.editing = id;
+  $delete.style.visibility = 'visible';
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));

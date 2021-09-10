@@ -81,6 +81,9 @@ function handlePageLoad() {
   // const storedData = JSON.parse(localStorage.getItem('dataJSON'));
   /* on load get data and parse. manipute/change data on this object and then wstore this oject at unload */
   data = JSON.parse(localStorage.getItem('dataJSON'));
+  if (data) {
+    swapView();
+  }
   // check that the entries array exists and has at least on eentry in it
   if (data.entries && (data.entries.length > 0)) {
     // hide 'no entries' message
@@ -100,9 +103,6 @@ document.addEventListener('DOMContentLoaded', handlePageLoad);
 
 function clearData() {
   localStorage.clear();
-  entries = [];
-  idCount = 1;
-  view = 'entry-form';
   data = {
     view: 'entry-form',
     entries: [],
