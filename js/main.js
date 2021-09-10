@@ -31,15 +31,15 @@ function handleSubmit(e) {
     photoUrl: url,
     title: title
   };
-  console.log('edit or submit', editing ? 'edit' : 'submit');
-  if (editing) {
+  console.log('edit or submit', data.editing ? 'edit' : 'submit');
+  if (data.editing) {
     console.log('inputData', inputData);
-    console.log('editing:', editing);
-    inputData.entryId = editing;
+    console.log('editing:', data.editing);
+    inputData.entryId = data.editing;
     console.log('inputData', inputData);
     // search entries array for entry with matchingid and replace wiht updated entry
     // set value of entries to new array
-    entries = entries.map(current => {
+    data.entries = data.entries.map(current => {
       if (current.entryId === inputData.entryId) {
         return inputData;
       }
@@ -47,24 +47,24 @@ function handleSubmit(e) {
     });
 
     const $updated = createEntryElement(inputData);
-    const $previous = document.querySelector(`[data-entry-id='${editing}']`);
+    const $previous = document.querySelector(`[data-entry-id='${data.editing}']`);
     console.log('$previous', $previous);
 
     $previous.replaceWith($updated);
     // change value of editing when finished
-    editing = null;
+    data.editing = null;
   } else {
-    inputData.entryId = idCount;
-    idCount++;
-    entries.unshift(inputData);
-    view = 'entries';
+    inputData.entryId = data.nextEntryId;
+    data.nextEntryId = data.nextEntryId++;
+    data.entries.unshift(inputData);
+    data.view = 'entries';
     createAndAdd(inputData);
   }
   // always switch to entries view on submit and reset form
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
   $entryForm.reset();
-  view = 'entries';
+  data.view = 'entries';
   swapView();
 }
 
@@ -75,13 +75,13 @@ $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
 // click handlers for view-swapping
 const $entriesButton = document.getElementById('btn-entries');
 $entriesButton.addEventListener('click', () => {
-  view = 'entries';
+  data.view = 'entries';
   swapView();
 });
 
 const $newButton = document.getElementById('btn-new');
 $newButton.addEventListener('click', () => {
-  view = 'entry-form';
+  data.view = 'entry-form';
   swapView();
 });
 
@@ -102,12 +102,12 @@ function handleEdit({ target }) {
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
   console.log('id:', id);
   console.log('type:', typeof id);
-  const entry = entries.find(e => e.entryId === id);
+  const entry = data.entries.find(e => e.entryId === id);
   prepopulateForm(entry);
-  view = 'entry-form';
+  data.view = 'entry-form';
   swapView();
-  editing = id; // id is number!!!
-  console.log('editing:', editing);
+  data.editing = id; // id is number!!!
+  console.log('editing:', data.editing);
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));

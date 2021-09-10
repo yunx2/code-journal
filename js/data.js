@@ -15,18 +15,18 @@ var data = {
   nextEntryId: 1
 };
 
-let entries = [];
-let idCount = 1;
-let view = 'entry-form';
-var editing = null;
+// let entries = [];
+// let idCount = 1;
+// let view = 'entry-form';
+// var editing = null;
 
 const $entriesList = document.getElementById('entries-ul');
 
 function swapView() {
   const viewNodeList = document.querySelectorAll('.view');
   viewNodeList.forEach(node => {
-    const data = node.getAttribute('data-view');
-    if (data === view) {
+    const viewName = node.getAttribute('data-view');
+    if (viewName === data.view) {
       node.classList.remove('hidden');
       node.scrollIntoView();
     } else {
@@ -37,9 +37,10 @@ function swapView() {
 
 // handle load and unload
 function handleUnload() {
-  data.entries = entries;
-  data.nextEntryId = idCount;
-  data.view = view;
+  // data.entries = entries;
+  // data.nextEntryId = idCount;
+  // data.view = view;
+/* on unload stringify the data object in memory and store */
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('dataJSON', dataJSON);
 }
@@ -85,20 +86,23 @@ function createEntryElement(entry) {
 
 function handlePageLoad() {
   // access localstorage at key 'dataJSON' and parse value back into JS
-  const storedData = JSON.parse(localStorage.getItem('dataJSON'));
+  // const storedData = JSON.parse(localStorage.getItem('dataJSON'));
+  /* on load get data and parse. manipute/change data on this object and then wstore this oject at unload */
+  data = JSON.parse(localStorage.getItem('dataJSON'));
   // intialized entries, idCount, and view variables with data from stored object
-  entries = storedData.entries;
-  idCount = storedData.nextEntryId;
-  view = storedData.view;
-  swapView();
+  // entries = storedData.entries;
+  // idCount = storedData.nextEntryId;
+  // view = storedData.view;
+  // swapView();
   // check that the entries array exists and has at least on eentry in it
-  if (entries && (entries.length > 0)) {
+  console.log('data at load', data);
+  if (data.entries && (data.entries.length > 0)) {
     // hide 'no entries' message
     const $message = document.getElementById('no-entries-recorded');
     $message.classList.add('hidden');
     // entries is already in reverse chronologiccal order, so just append
     // in the same order as array
-    entries.forEach(current => {
+    data.entries.forEach(current => {
       const $current = createEntryElement(current);
       $entriesList.append($current);
     });
@@ -115,28 +119,11 @@ function clearData() {
   entries = [];
   idCount = 1;
   view = 'entry-form';
+  data = {
+    view: 'entry-form',
+    entries: [],
+    editing: null,
+    nextEntryId: 1
+  };
   window.location.reload();
 }
-
-// dummy entries
-
-const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosq.';
-
-const testEntries = [
-  {
-    entryId: 13,
-    journalEntry: lorem,
-    title: 'Scheme',
-    photoUrl: 'images/dummy-images/scheme.jpg'
-  }, {
-    entryId: 8,
-    journalEntry: lorem,
-    title: 'Javascript',
-    photoUrl: './images/dummy-images/javascript.png'
-  }, {
-    entryId: 4,
-    journalEntry: lorem,
-    title: 'Node',
-    photoUrl: '/images/dummy-images/node.png'
-  }
-];
