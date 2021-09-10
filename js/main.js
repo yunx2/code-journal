@@ -25,16 +25,10 @@ function handleUrlInput(e) {
 
 function handleSubmit(e) {
   e.preventDefault();
-  //   console.log('e.target closest button', e.target.closest('button'))
-  // console.log('tagName  at handleSubmit', e.target.tagName)
-  //  console.log('e.target at handleSubmit', e.target)
-  // const targetClass =
-  // console.log('e.target class', targetClass)
+  // only respond to clicks on the save button
   if (e.target.className === 'delete' || e.target.tagName !== 'BUTTON') {
-    // console.log('e.target closest button at on submit', e.target.closest('button'))
     return;
   }
-  // if (e.target.tagName !== '') {
   const entry = $entryTextarea.value;
   const title = $titleInput.value;
   const url = $photoUrlInput.value;
@@ -43,32 +37,37 @@ function handleSubmit(e) {
     photoUrl: url,
     title: title
   };
-  // console.log('edit or submit', data.editing ? 'edit' : 'submit');
+  // if data.editing has a value, do editing thigns
   if (data.editing) {
     inputData.entryId = data.editing;
-    // search entries array for entry with matchingid and replace wiht updated entry
-    // set value of entries to new array
+    // replace entry with edited version in  and set array with editied entires to data.entrioes
+    // make changes in data
     data.entries = data.entries.map(current => {
-      if (current.entryId === inputData.entryId) {
+      // eslint-disable-next-line eqeqeq
+      if (current.entryId == inputData.entryId) {
         return inputData;
       }
       return current;
     });
-
+    // change DOMto match data
     const $updated = createEntryElement(inputData);
+    // get old entry and replace with new
     const $previous = document.querySelector(`[data-entry-id='${data.editing}']`);
     $previous.replaceWith($updated);
     // clean up
     data.editing = null;
     $delete.style.visibility = 'hidden';
-  } else {
+  } else { // else do submit things
+    console.log('nextid (currentid) before increment:', data.nextEntryId);
     inputData.entryId = data.nextEntryId;
-    data.nextEntryId = data.nextEntryId++;
+    console.log('entry just created:', inputData);
+    data.nextEntryId++;
+    console.log('nextid after increment:', data.nextEntryId);
     data.entries.unshift(inputData);
-    data.view = 'entries';
+    // data.view = 'entries';
     createAndAdd(inputData);
   }
-  // always switch to entries view on submit and reset form
+  // for both submit and edit do these thins
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
   $entryForm.reset();
@@ -139,7 +138,9 @@ function handleDelete() {
       break;
     }
   }
-  data.editing = null;
+  // data.editing = null;
+  const $deletedEntry = document.querySelector(`[data-entry-id='${data.editing}']`);
+  $deletedEntry.remove();
   $confirm.close();
   swapView('entries');
 
