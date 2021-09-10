@@ -120,3 +120,14 @@ textarea#notes {
   text-align: center;
   width: 100%;
 }
+
+.btn-edit {
+  border: none;
+  color: #562b81;
+  font-size: 26px;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+}
