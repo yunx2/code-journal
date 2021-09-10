@@ -28,9 +28,9 @@ function handleSubmit(e) {
   //   console.log('e.target closest button', e.target.closest('button'))
   // console.log('tagName  at handleSubmit', e.target.tagName)
   //  console.log('e.target at handleSubmit', e.target)
-  const targetClass = e.target.getAttribute('class');
+  // const targetClass =
   // console.log('e.target class', targetClass)
-  if (targetClass === 'delete') {
+  if (e.target.className === 'delete' || e.target.tagName !== 'BUTTON') {
     // console.log('e.target closest button at on submit', e.target.closest('button'))
     return;
   }
@@ -120,9 +120,9 @@ $entriesList.addEventListener('click', e => handleEdit(e));
 // feature 4: delete handler
 
 function handleDeleteClick(e) {
-  e.preventDefault();
-  console.log('deletehandler', e.target);
-  console.log('tagName on clicking delete', e.target.tagName);
+  // e.preventDefault();
+  // console.log('deletehandler', e.target);
+  // console.log('tagName on clicking delete', e.target.tagName);
 
   // e.stopPropagation()
   //  console.log('e.target closest button', e.target.closest('button'))
