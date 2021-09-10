@@ -31,6 +31,7 @@ function handleSubmit(e) {
     photoUrl: url,
     title: title
   };
+  console.log('edit or submit', editing ? 'edit' : 'submit');
   if (editing) {
     console.log('inputData', inputData);
     console.log('editing:', editing);
@@ -100,10 +101,11 @@ function handleEdit({ target }) {
   const $entry = target.closest('article');
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
   console.log('id:', id);
+  console.log('type:', typeof id);
   const entry = entries.find(e => e.entryId === id);
+  prepopulateForm(entry);
   view = 'entry-form';
   swapView();
-  prepopulateForm(entry);
   editing = id; // id is number!!!
   console.log('editing:', editing);
 }
