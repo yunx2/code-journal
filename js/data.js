@@ -100,9 +100,6 @@ document.addEventListener('DOMContentLoaded', handlePageLoad);
 
 function clearData() {
   localStorage.clear();
-  entries = [];
-  idCount = 1;
-  view = 'entry-form';
   data = {
     view: 'entry-form',
     entries: [],

@@ -131,3 +131,11 @@ textarea#notes {
   display: flex;
   justify-content: space-between;
 }
+
+.delete {
+  color: red;
+  text-decoration: underline;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
