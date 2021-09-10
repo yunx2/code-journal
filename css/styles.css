@@ -161,10 +161,14 @@ textarea#notes {
 .btn-cancel {
   border: none;
   background-color: #b6b6b6;
+  height: 25px;
+  border-radius: 4px;
 }
 
 .btn-confirm {
   border: none;
   color: white;
   background-color: red;
+  height: 25px;
+  border-radius: 4px;
 }
