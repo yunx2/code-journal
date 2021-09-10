@@ -31,12 +31,9 @@ function handleSubmit(e) {
     photoUrl: url,
     title: title
   };
-  console.log('edit or submit', data.editing ? 'edit' : 'submit');
+  // console.log('edit or submit', data.editing ? 'edit' : 'submit');
   if (data.editing) {
-    console.log('inputData', inputData);
-    console.log('editing:', data.editing);
     inputData.entryId = data.editing;
-    console.log('inputData', inputData);
     // search entries array for entry with matchingid and replace wiht updated entry
     // set value of entries to new array
     data.entries = data.entries.map(current => {
@@ -48,8 +45,6 @@ function handleSubmit(e) {
 
     const $updated = createEntryElement(inputData);
     const $previous = document.querySelector(`[data-entry-id='${data.editing}']`);
-    console.log('$previous', $previous);
-
     $previous.replaceWith($updated);
     // change value of editing when finished
     data.editing = null;
@@ -100,14 +95,11 @@ function handleEdit({ target }) {
   // gets closest item matching the selector in argument
   const $entry = target.closest('article');
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
-  console.log('id:', id);
-  console.log('type:', typeof id);
   const entry = data.entries.find(e => e.entryId === id);
   prepopulateForm(entry);
   data.view = 'entry-form';
   swapView();
-  data.editing = id; // id is number!!!
-  console.log('editing:', data.editing);
+  data.editing = id;
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));

@@ -15,11 +15,6 @@ var data = {
   nextEntryId: 1
 };
 
-// let entries = [];
-// let idCount = 1;
-// let view = 'entry-form';
-// var editing = null;
-
 const $entriesList = document.getElementById('entries-ul');
 
 function swapView() {
@@ -37,9 +32,6 @@ function swapView() {
 
 // handle load and unload
 function handleUnload() {
-  // data.entries = entries;
-  // data.nextEntryId = idCount;
-  // data.view = view;
 /* on unload stringify the data object in memory and store */
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('dataJSON', dataJSON);
@@ -89,13 +81,7 @@ function handlePageLoad() {
   // const storedData = JSON.parse(localStorage.getItem('dataJSON'));
   /* on load get data and parse. manipute/change data on this object and then wstore this oject at unload */
   data = JSON.parse(localStorage.getItem('dataJSON'));
-  // intialized entries, idCount, and view variables with data from stored object
-  // entries = storedData.entries;
-  // idCount = storedData.nextEntryId;
-  // view = storedData.view;
-  // swapView();
   // check that the entries array exists and has at least on eentry in it
-  console.log('data at load', data);
   if (data.entries && (data.entries.length > 0)) {
     // hide 'no entries' message
     const $message = document.getElementById('no-entries-recorded');
@@ -111,8 +97,6 @@ function handlePageLoad() {
 // attach event listeners
 window.addEventListener('beforeunload', handleUnload);
 document.addEventListener('DOMContentLoaded', handlePageLoad);
-
-// functions for helping debug
 
 function clearData() {
   localStorage.clear();
