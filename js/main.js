@@ -106,7 +106,3 @@ function handleEdit({ target }) {
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));
-
-// const $delete = document.querySelector('.delete');
-
-// $delete.addEventListener('click');
