@@ -17,7 +17,8 @@ var data = {
 
 const $entriesList = document.getElementById('entries-ul');
 
-function swapView() {
+function swapView(swap) {
+  data.view = swap;
   const viewNodeList = document.querySelectorAll('.view');
   viewNodeList.forEach(node => {
     const viewName = node.getAttribute('data-view');
@@ -82,7 +83,7 @@ function handlePageLoad() {
   /* on load get data and parse. manipute/change data on this object and then wstore this oject at unload */
   data = JSON.parse(localStorage.getItem('dataJSON'));
   if (data) {
-    swapView();
+    swapView(data.view);
   }
   // check that the entries array exists and has at least on eentry in it
   if (data.entries && (data.entries.length > 0)) {

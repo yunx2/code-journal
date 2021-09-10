@@ -8,6 +8,7 @@ const $photoUrlInput = formELements['entry-url'];
 const $entryTextarea = formELements['entry-notes'];
 const $photoPreview = document.getElementById('photo-preview');
 const $delete = document.querySelector('.delete');
+const $confirm = document.querySelector('.confirm-dialog');
 
 function createAndAdd(entry) {
   const $el = createEntryElement(entry);
@@ -24,6 +25,16 @@ function handleUrlInput(e) {
 
 function handleSubmit(e) {
   e.preventDefault();
+  //   console.log('e.target closest button', e.target.closest('button'))
+  // console.log('tagName  at handleSubmit', e.target.tagName)
+  //  console.log('e.target at handleSubmit', e.target)
+  const targetClass = e.target.getAttribute('class');
+  // console.log('e.target class', targetClass)
+  if (targetClass === 'delete') {
+    // console.log('e.target closest button at on submit', e.target.closest('button'))
+    return;
+  }
+  // if (e.target.tagName !== '') {
   const entry = $entryTextarea.value;
   const title = $titleInput.value;
   const url = $photoUrlInput.value;
@@ -61,25 +72,25 @@ function handleSubmit(e) {
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
   $entryForm.reset();
-  data.view = 'entries';
-  swapView();
+  // data.view = 'entries';
+  swapView('entries');
 }
 
 // attach event handlers
-$entryForm.addEventListener('submit', e => handleSubmit(e));
+$entryForm.addEventListener('click', e => handleSubmit(e));
 $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
 
 // click handlers for view-swapping
 const $entriesButton = document.getElementById('btn-entries');
 $entriesButton.addEventListener('click', () => {
-  data.view = 'entries';
-  swapView();
+  // data.view = 'entries';
+  swapView('entries');
 });
 
 const $newButton = document.getElementById('btn-new');
 $newButton.addEventListener('click', () => {
-  data.view = 'entry-form';
-  swapView();
+  // data.view = 'entry-form';
+  swapView('entry-form');
 });
 
 function prepopulateForm(entry) {
@@ -99,10 +110,24 @@ function handleEdit({ target }) {
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
   const entry = data.entries.find(e => e.entryId === id);
   prepopulateForm(entry);
-  data.view = 'entry-form';
-  swapView();
+  // data.view = 'entry-form';
+  swapView('entry-form');
   data.editing = id;
   $delete.style.visibility = 'visible';
 }
 
 $entriesList.addEventListener('click', e => handleEdit(e));
+// feature 4: delete handler
+
+function handleDeleteClick(e) {
+  e.preventDefault();
+  console.log('deletehandler', e.target);
+  console.log('tagName on clicking delete', e.target.tagName);
+
+  // e.stopPropagation()
+  //  console.log('e.target closest button', e.target.closest('button'))
+  // swapView('entry-form');
+  $confirm.showModal();
+}
+
+$delete.addEventListener('click', e => handleDeleteClick(e));
