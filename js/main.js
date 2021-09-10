@@ -118,31 +118,43 @@ function handleEdit({ target }) {
 
 $entriesList.addEventListener('click', e => handleEdit(e));
 // feature 4: delete handler
+function handleDelete() {
+  // access data.editing get entry id, then search through data.entries for
+  // matching entry then remove from entries
+  // change dom to match the data
+  // change data.editing to null, close modal, swap view to 'entries
+  // const entriesCopy = data.entries.slice();
+  // while entryID property of the entry doesn't dqual the value of data.editing as a string
+  // let entryIndex;
+  // const id = data.editing + '';
+  console.log('num entries before delete', data.entries.length);
+  for (let i = 0; i < data.entries.length; i++) {
+    const current = data.entries[i];
+    console.log('deleted entry:', current);
+    // eslint-disable-next-line eqeqeq
+    if (current.entryId == data.editing) {
+      console.log('data.editing:', data.editing, 'current entryId:', current.entryId);
+      data.entries.splice(i, 1);
+      console.log('num entries after delete', data.entries.length);
+      break;
+    }
+  }
+  data.editing = null;
+  $confirm.close();
+  swapView('entries');
 
+}
 const $dialogBtnContainer = document.querySelector('.buttons-dialog');
 
 $dialogBtnContainer.addEventListener('click', e => {
-  if (e.target.id !== 'confirm' || e.target.id !== 'cancel') {
-    return;
-  }
+  // console.log('target id', e.target.id)
   if (e.target.id === 'confirm') {
-    console.log('clicked confirm');
-  } else {
-    console.log('clicked cancel');
+    // console.log('clicked confirm');
+    handleDelete();
   }
-  $confirm.closest();
+  if (e.target.id === 'cancel') {
+    $confirm.close();
+  }
 });
 
-function handleDeleteClick(e) {
-  $confirm.showModal();
-  // e.preventDefault();
-  // console.log('deletehandler', e.target);
-  // console.log('tagName on clicking delete', e.target.tagName);
-
-  // e.stopPropagation()
-  //  console.log('e.target closest button', e.target.closest('button'))
-  // swapView('entry-form');
-
-}
-
-$delete.addEventListener('click', e => handleDeleteClick(e));
+$delete.addEventListener('click', e => $confirm.showModal());
