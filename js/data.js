@@ -79,9 +79,6 @@ function createEntryElement(entry) {
 }
 
 function handlePageLoad() {
-  // access localstorage at key 'dataJSON' and parse value back into JS
-  // const storedData = JSON.parse(localStorage.getItem('dataJSON'));
-  /* on load get data and parse. manipute/change data on this object and then wstore this oject at unload */
   data = JSON.parse(localStorage.getItem('dataJSON'));
   if (data) {
     swapView(data.view);

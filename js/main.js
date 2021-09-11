@@ -26,9 +26,12 @@ function handleUrlInput(e) {
 function handleSubmit(e) {
   e.preventDefault();
   // only respond to clicks on the save button
-  if (e.target.className === 'delete' || e.target.tagName !== 'BUTTON') {
+  if (e.target.id !== 'save') {
+    console.log('target id not save', e.target);
     return;
   }
+  console.log('target @handle submit', e.target);
+  console.log('id should = "save" ->', e.target.id);
   const entry = $entryTextarea.value;
   const title = $titleInput.value;
   const url = $photoUrlInput.value;
@@ -118,40 +121,30 @@ function handleEdit({ target }) {
 $entriesList.addEventListener('click', e => handleEdit(e));
 // feature 4: delete handler
 function handleDelete() {
-  // access data.editing get entry id, then search through data.entries for
-  // matching entry then remove from entries
-  // change dom to match the data
-  // change data.editing to null, close modal, swap view to 'entries
-  // const entriesCopy = data.entries.slice();
-  // while entryID property of the entry doesn't dqual the value of data.editing as a string
-  // let entryIndex;
-  // const id = data.editing + '';
-  console.log('num entries before delete', data.entries.length);
+  // console.log('num entries before delete', data.entries.length);
   for (let i = 0; i < data.entries.length; i++) {
     const current = data.entries[i];
-    console.log('deleted entry:', current);
+    // console.log('deleted entry:', current);
     // eslint-disable-next-line eqeqeq
     if (current.entryId == data.editing) {
-      console.log('data.editing:', data.editing, 'current entryId:', current.entryId);
+      // console.log('data.editing:', data.editing, 'current entryId:', current.entryId);
       data.entries.splice(i, 1);
-      console.log('num entries after delete', data.entries.length);
+      // console.log('num entries after delete', data.entries.length);
       break;
     }
   }
-  data.editing = null;
   const $deletedEntry = document.querySelector(`[data-entry-id='${data.editing}']`);
+  data.editing = null;
   $deletedEntry.remove();
   $confirm.close();
   swapView('entries');
   $entryForm.reset();
-
 }
+
 const $dialogBtnContainer = document.querySelector('.buttons-dialog');
 
 $dialogBtnContainer.addEventListener('click', e => {
-  // console.log('target id', e.target.id)
   if (e.target.id === 'confirm') {
-    // console.log('clicked confirm');
     handleDelete();
   }
   if (e.target.id === 'cancel') {
