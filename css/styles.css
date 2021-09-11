@@ -91,6 +91,7 @@ textarea#notes {
 .entries-list {
   list-style-type: none;
   padding-left: 0;
+  width: 100%;
 }
 
 .entry-title {
@@ -130,4 +131,49 @@ textarea#notes {
 .item-header {
   display: flex;
   justify-content: space-between;
+}
+
+.delete {
+  color: red;
+  text-decoration: underline;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  visibility: hidden;
+}
+
+.confirm-dialog {
+  border: none;
+  border-radius: 4px;
+  width: 325px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.buttons {
+  width: 50%;
+}
+
+.dialog-text {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.btn-cancel {
+  border: none;
+  background-color: #b6b6b6;
+  height: 25px;
+  border-radius: 4px;
+}
+
+.btn-confirm {
+  border: none;
+  color: white;
+  background-color: red;
+  height: 25px;
+  border-radius: 4px;
+}
+
+dialog::backdrop {
+  background-color: rgba(38, 37, 37, 0.75);
 }

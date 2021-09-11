@@ -52,15 +52,26 @@
       </div>
       <div class="column-full form-textarea" id="entry-text">
         <label for="journal-entry" class="form-label">Notes</label>
-        <div><textarea id="journal-entry" rows="5" name="entry-notes" class="form-controls" required></textarea></div>
-        <div class="row btn-container"><input type="submit" value="SAVE" class="btn"></div>
-      </div>
+        <div>
+          <textarea id="journal-entry" rows="5" name="entry-notes" class="form-controls" required></textarea>
+        </div>
+        <div class="row btn-container heading-container">
+          <button id="delete" class="delete">Delete Entry</button>
+          <button id="save" class="btn save">SAVE</button></div>
+        </div>
+        <dialog class="confirm-dialog">
+          <p class="dialog-text">Are you sure you want to delete this entry?</p>
+          <div class="buttons-dialog heading-container ">
+            <button id="cancel" class="btn-cancel">CANCEL</button>
+            <button id="confirm" class="btn-confirm">CONFIRM</button>
+          </div>
+        </dialog>
     </form>
     <!-- entries view -->
     <div class="row view" data-view="entries" id="view-entries">
       <div class="column-full heading-container">
         <h2 class="entries-heading">Entries</h2>
-        <a class="" href="#entry-form"><button type="button" id="btn-new" class="btn-new btn">NEW</button></a>
+        <button type="button" id="btn-new" class="btn-new btn">NEW</button>
       </div>
       <div id="no-entries-recorded">No entries have been recorded</div>
       <ul class="entries-list" id="entries-ul">
@@ -70,6 +81,5 @@
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
-  <!-- <script src="js/handleEdit.js"></script> -->
 </body>
 </html>
