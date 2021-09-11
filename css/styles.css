@@ -91,6 +91,7 @@ textarea#notes {
 .entries-list {
   list-style-type: none;
   padding-left: 0;
+  width: 100%;
 }
 
 .entry-title {
