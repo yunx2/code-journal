@@ -27,11 +27,8 @@ function handleSubmit(e) {
   e.preventDefault();
   // only respond to clicks on the save button
   if (e.target.id !== 'save') {
-    console.log('target id not save', e.target);
     return;
   }
-  console.log('target @handle submit', e.target);
-  console.log('id should = "save" ->', e.target.id);
   const entry = $entryTextarea.value;
   const title = $titleInput.value;
   const url = $photoUrlInput.value;
@@ -61,20 +58,16 @@ function handleSubmit(e) {
     data.editing = null;
     $delete.style.visibility = 'hidden';
   } else { // else do submit things
-    console.log('nextid (currentid) before increment:', data.nextEntryId);
     inputData.entryId = data.nextEntryId;
-    console.log('entry just created:', inputData);
+    // console.log('entry just created:', inputData);
     data.nextEntryId++;
-    console.log('nextid after increment:', data.nextEntryId);
     data.entries.unshift(inputData);
-    // data.view = 'entries';
     createAndAdd(inputData);
   }
   // for both submit and edit do these thins
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
   $entryForm.reset();
-  // data.view = 'entries';
   swapView('entries');
 }
 
@@ -85,13 +78,11 @@ $photoUrlInput.addEventListener('input', e => handleUrlInput(e));
 // click handlers for view-swapping
 const $entriesButton = document.getElementById('btn-entries');
 $entriesButton.addEventListener('click', () => {
-  // data.view = 'entries';
   swapView('entries');
 });
 
 const $newButton = document.getElementById('btn-new');
 $newButton.addEventListener('click', () => {
-  // data.view = 'entry-form';
   swapView('entry-form');
 });
 
@@ -112,7 +103,6 @@ function handleEdit({ target }) {
   const id = Number.parseInt($entry.getAttribute('data-entry-id'));
   const entry = data.entries.find(e => e.entryId === id);
   prepopulateForm(entry);
-  // data.view = 'entry-form';
   swapView('entry-form');
   data.editing = id;
   $delete.style.visibility = 'visible';
@@ -121,15 +111,11 @@ function handleEdit({ target }) {
 $entriesList.addEventListener('click', e => handleEdit(e));
 // feature 4: delete handler
 function handleDelete() {
-  // console.log('num entries before delete', data.entries.length);
   for (let i = 0; i < data.entries.length; i++) {
     const current = data.entries[i];
-    // console.log('deleted entry:', current);
     // eslint-disable-next-line eqeqeq
     if (current.entryId == data.editing) {
-      // console.log('data.editing:', data.editing, 'current entryId:', current.entryId);
       data.entries.splice(i, 1);
-      // console.log('num entries after delete', data.entries.length);
       break;
     }
   }

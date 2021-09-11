@@ -172,3 +172,7 @@ textarea#notes {
   height: 25px;
   border-radius: 4px;
 }
+
+dialog::backdrop {
+  background-color: rgba(38, 37, 37, 0.75);
+}
