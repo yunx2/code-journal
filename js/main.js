@@ -9,75 +9,97 @@ const $entryTextarea = formELements['entry-notes'];
 const $photoPreview = document.getElementById('photo-preview');
 const $delete = document.querySelector('.delete');
 const $confirm = document.querySelector('.confirm-dialog');
+const placeholderUrl = './images/placeholder-image-square.jpg';
 
-function createAndAdd(entry) {
-  const $el = createEntryElement(entry);
-  // hide 'no-entries' object
-  document.getElementById('no-entries-recorded').classList.add('hidden');
-  const $firstListItem = document.querySelector('li:first-child');
-  $firstListItem.prepend($el);
+function resetPlaceholder() {
+  const placeholderUrl = './images/placeholder-image-square.jpg';
+  $photoPreview.setAttribute('src', placeholderUrl);
 }
+
+// function createAndAdd(entry) {
+//   const $el = createEntryElement(entry);
+// hide 'no-entries' object
+//
+// const $firstListItem = document.querySelector('li:first-child');
+// $firstListItem.prepend($el);
+// }
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
-function handleUrlInput(e) {
-  $photoPreview.setAttribute('src', e.target.value);
+
+function handleEdit(formData) {
+  // give data the id of edited entry
+  formData.entryId = data.editing;
+  // update entries array with edited entry
+  data.entries = data.entries.map(current => { // array.map returns a new array
+    // eslint-disable-next-line eqeqeq
+    if (current.entryId == formData.entryId) {
+      return formData;
+    }
+    return current;
+  });
+  // change DOMto match data
+  const $edited = createEntryElement(formData);
+  // get old entry and replace with new
+  const $original = document.querySelector(`[data-entry-id='${data.editing}']`);
+  $original.replaceWith($edited);
+  // change data.editing back to null because editing is finished
+  data.editing = null;
+  // hide delete entry button again, so it won't be there when using the form to
+  // add a new entry
+  $delete.style.visibility = 'hidden';
 }
 
-function handleSubmit(e) {
+function handleSubmit(formData) {
+  formData.entryId = data.nextEntryId;
+  // console.log('entry just created:', inputData);
+  data.nextEntryId++;
+  data.entries.unshift(formData);
+  const $newEntry = createEntryElement(formData);
+  // hide 'no-entries' element in case this entry is the first one and it isn't already hidden
+  document.getElementById('no-entries-recorded').classList.add('hidden');
+  // get first list item in entrylist and prepend
+  const $firstListItem = document.querySelector('li:first-child');
+  $firstListItem.prepend($newEntry);
+}
+
+function handleSave(e) {
   e.preventDefault();
   // only respond to clicks on the save button
   if (e.target.id !== 'save') {
     return;
   }
+  // collect form data into an object
   const entry = $entryTextarea.value;
   const title = $titleInput.value;
   const url = $photoUrlInput.value;
-  const inputData = {
+  const entryData = {
     journalEntry: entry,
     photoUrl: url,
     title: title
   };
   // if data.editing has a value, do editing thigns
   if (data.editing) {
-    inputData.entryId = data.editing;
-    // replace entry with edited version in  and set array with editied entires to data.entrioes
-    // make changes in data
-    data.entries = data.entries.map(current => {
-      // eslint-disable-next-line eqeqeq
-      if (current.entryId == inputData.entryId) {
-        return inputData;
-      }
-      return current;
-    });
-    // change DOMto match data
-    const $updated = createEntryElement(inputData);
-    // get old entry and replace with new
-    const $previous = document.querySelector(`[data-entry-id='${data.editing}']`);
-    $previous.replaceWith($updated);
-    // clean up
-    data.editing = null;
-    $delete.style.visibility = 'hidden';
+    handleEdit(entryData);
   } else { // else do submit things
-    inputData.entryId = data.nextEntryId;
-    // console.log('entry just created:', inputData);
-    data.nextEntryId++;
-    data.entries.unshift(inputData);
-    createAndAdd(inputData);
+    handleSubmit(entryData);
   }
-  // for both submit and edit do these thins
-  const placeholderUrl = './images/placeholder-image-square.jpg';
-  $photoPreview.setAttribute('src', placeholderUrl);
+  // for both submit and edit do these things
+  resetPlaceholder();
   $entryForm.reset();
   swapView('entries');
 }
 
 // attach event handlers
-$entryForm.addEventListener('click', e => handleSubmit(e));
-$photoUrlInput.addEventListener('input', e => handleUrlInput(e));
+$entryForm.addEventListener('click', e => handleSave(e));
+$photoUrlInput.addEventListener('input', e => {
+  $photoPreview.setAttribute('src', e.target.value);
+});
 
 // click handlers for view-swapping
 const $entriesButton = document.getElementById('btn-entries');
 $entriesButton.addEventListener('click', () => {
+  $entryForm.reset();
+  resetPlaceholder();
   swapView('entries');
 });
 
@@ -94,21 +116,31 @@ function prepopulateForm(entry) {
   $photoPreview.setAttribute('src', photoUrl);
 }
 
-function handleEdit({ target }) {
+function showEditView({ target }) {
   if (!(target.tagName === 'I')) {
     return;
   }
   // gets closest item matching the selector in argument
   const $entry = target.closest('article');
-  const id = Number.parseInt($entry.getAttribute('data-entry-id'));
-  const entry = data.entries.find(e => e.entryId === id);
-  prepopulateForm(entry);
+  const id = $entry.getAttribute('data-entry-id');
+  // find entry with matching id
+  // eslint-disable-next-line eqeqeq
+  const entry = data.entries.find(e => e.entryId == id);
+  const { title, photoUrl, journalEntry } = entry;
+  // use entry data to prepopulate form fields
+  $photoUrlInput.value = photoUrl;
+  $titleInput.value = title;
+  $entryTextarea.value = journalEntry;
+  $photoPreview.setAttribute('src', photoUrl);
+  // show prepopulated form
   swapView('entry-form');
   data.editing = id;
+  // 'delete entry' button should be visible because this is edit view
   $delete.style.visibility = 'visible';
 }
 
-$entriesList.addEventListener('click', e => handleEdit(e));
+$entriesList.addEventListener('click', e => showEditView(e));
+
 // feature 4: delete handler
 function handleDelete() {
   for (let i = 0; i < data.entries.length; i++) {
