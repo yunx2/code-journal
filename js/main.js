@@ -15,14 +15,6 @@ function resetPlaceholder() {
   const placeholderUrl = './images/placeholder-image-square.jpg';
   $photoPreview.setAttribute('src', placeholderUrl);
 }
-
-// function createAndAdd(entry) {
-//   const $el = createEntryElement(entry);
-// hide 'no-entries' object
-//
-// const $firstListItem = document.querySelector('li:first-child');
-// $firstListItem.prepend($el);
-// }
 // 'DOMContentLoaded' event fires after HTML document has been loaded; doesn't wait for stylesheets/images/etc
 // 'load' event does wait for the page and all resources to completely load before firing
 
